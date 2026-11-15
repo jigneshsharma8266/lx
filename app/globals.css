@@ -1,26 +1,83 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #080B0E;
+    --foreground: #F3EFE6;
+    --gold: #C5A880;
+    --gold-light: #E0CDB5;
+    --gold-dark: #987850;
+    --charcoal-deep: #080B0E;
+    --charcoal-card: #0F1318;
+    --charcoal-border: #1E252E;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif), "Cormorant Garamond", Georgia, serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Luxury Utilities */
+.glass-panel {
+  background: rgba(15, 19, 24, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(22, 28, 34, 0.85);
+  border-color: rgba(197, 168, 128, 0.35);
+  box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.6), 0 0 20px -5px rgba(197, 168, 128, 0.15);
+}
+
+.gold-glow {
+  box-shadow: 0 0 30px -5px rgba(197, 168, 128, 0.25);
+}
+
+.gold-text-gradient {
+  background: linear-gradient(135deg, #FFF6E9 0%, #D8C1A3 50%, #B89262 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.champagne-gradient {
+  background: linear-gradient(135deg, #E5D5C0 0%, #C5A880 100%);
+}
+
+.hero-mask {
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+/* Subtle luxury grain effect */
+.bg-grain {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080B0E;
+}
+::-webkit-scrollbar-thumb {
+  background: #202730;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A880;
 }
