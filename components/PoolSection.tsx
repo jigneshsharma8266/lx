@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Sun, Moon, Sparkles, Droplets, Waves, Check, ShieldCheck } from "lucide-react";
 
@@ -119,13 +120,19 @@ export default function PoolSection() {
               </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <a
                 href="#booking"
                 className="px-6 py-2.5 rounded-full bg-[#C5A880] text-[#080B0E] font-semibold text-xs tracking-[0.16em] uppercase hover:bg-white transition-all shadow-lg"
               >
                 Reserve Stay
               </a>
+              <Link
+                href="/gallery"
+                className="px-5 py-2.5 rounded-full bg-black/60 backdrop-blur-md border border-[#C5A880]/30 text-[#D2CBC1] hover:text-[#C5A880] text-xs font-semibold tracking-[0.16em] uppercase transition-all"
+              >
+                Pool Photos →
+              </Link>
             </div>
           </div>
         </div>

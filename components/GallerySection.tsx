@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -183,6 +184,17 @@ export default function GallerySection() {
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {/* Dedicated Gallery Page Link Callout */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/gallery"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#12161D] hover:bg-[#1A202C] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#E8D8BF] hover:text-white text-xs font-semibold uppercase tracking-[0.16em] transition-all duration-300 shadow-lg hover:scale-105"
+          >
+            <span>Explore All 37+ High-Res Photos on Gallery Page</span>
+            <span className="text-[#C5A880]">→</span>
+          </Link>
+        </div>
       </div>
 
       {/* Full-Screen Interactive Lightbox */}

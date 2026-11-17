@@ -18,12 +18,14 @@ export interface MenuItem {
   price: number;
   description?: string;
   isSpecialty?: boolean;
+  image?: string;
 }
 
 export interface MenuCategory {
   id: string;
   title: string;
   badge?: string;
+  image?: string;
   items: MenuItem[];
 }
 
@@ -42,9 +44,24 @@ export interface VillaImage {
   id: string;
   url: string;
   title: string;
-  category: "villa" | "rooms" | "pool" | "dining" | "food" | "outdoor" | "experiences";
+  category: "villa" | "rooms" | "pool" | "dining" | "food" | "outdoor" | "experiences" | "heritage";
   caption: string;
-  isTemporary: boolean;
+  isTemporary?: boolean;
+  featured?: boolean;
+}
+
+export interface RoomDetail {
+  id: string;
+  name: string;
+  tagline: string;
+  type: string;
+  occupancy: string;
+  bed: string;
+  view: string;
+  description: string;
+  features: string[];
+  amenities: string[];
+  images: { url: string; caption: string }[];
   featured?: boolean;
 }
 
@@ -84,22 +101,22 @@ export const villaData = {
     shortName: "Luxora",
     brandCollection: "Luxora By Royal Portico Villa's",
     motto: "Stay Grand. Stay Luxora.",
-    tagline: "Escape the Ordinary in Udaipur.",
+    tagline: "Your Private Luxury Villa in Udaipur.",
     heroSubtitle:
-      "Your private sanctuary in the City of Lakes. Unwind with a private swimming pool, scenic Aravalli mountain views, spacious dining hall, and tranquil garden living.",
-    introHeading: "More Than a Stay. An Entire Experience in Udaipur.",
+      "A private villa in Udaipur for families and groups of friends. Enjoy an adult swimming pool, air-conditioned bedrooms with mountain views, spacious dining hall, and quiet garden living.",
+    introHeading: "Your Private Getaway in Udaipur.",
     introBody1:
-      "Welcome to Luxora Villa, Udaipur! Tucked away amidst scenic mountain foothills, our private villa is tailored for families, groups of friends, and private getaways seeking serenity with luxury comfort.",
+      "Welcome to Luxora Villa, Udaipur! Located in the scenic mountain foothills, our private villa is made for families and friends who want a peaceful, private stay with hotel-like comfort.",
     introBody2:
-      "Enjoy complete exclusivity with a private adult swimming pool, air-conditioned fully furnished bedrooms, a spacious dining hall serving freshly prepared authentic dishes, lush lawns, power backup, and private parking for up to 5 cars.",
+      "When you book Luxora Villa, the entire space is yours. Enjoy a private adult swimming pool, clean air-conditioned bedrooms with mountain balconies, an in-house kitchen serving fresh homestyle meals, a large dining hall, green lawns, 24/7 power backup, and parking for up to 5 cars.",
   },
 
   contact: {
-    phone: "+91 98290 00000",
-    phoneDisplay: "+91 (Udaipur)",
-    whatsappNumber: "919829000000", // E.164 formatted number for wa.me URL
+    phone: "+91 8690955700",
+    phoneDisplay: "+91 86909 55700",
+    whatsappNumber: "918690955700", // E.164 formatted number for wa.me URL
     email: "reservations@luxoravilla.com",
-    addressLine1: "Luxora Villa, Scenic Foothills",
+    addressLine1: "Luxora Villa, Mountain Foothills",
     addressLine2: "Udaipur, Rajasthan 313001, India",
     cityState: "Udaipur, Rajasthan",
     googleMapsUrl: "https://maps.app.goo.gl/QUUzn5KWQkLSnLTc6",
@@ -107,16 +124,16 @@ export const villaData = {
     instagramHandle: "_luxora_villa",
   },
 
-  // Confirmed Property Key Highlights
+  // Confirmed Property Key Highlights in Simple, Real Words
   verifiedFeatures: [
-    { title: "Private Adult Pool", desc: "Secluded adult swimming pool for refreshing dips" },
-    { title: "Scenic Mountain View", desc: "Panoramic vistas of the surrounding Aravalli ranges" },
-    { title: "AC Bedrooms", desc: "Fully furnished air-conditioned luxury bedrooms" },
-    { title: "Spacious Dining Hall", desc: "Dedicated hall for group dining and celebrations" },
-    { title: "Garden Sitting Area", desc: "Manicured green lawn with comfortable open-air seating" },
-    { title: "Bluetooth Sound", desc: "High-quality sound setup for your music and gatherings" },
-    { title: "5-Car Parking", desc: "Private secure on-site parking for up to 5 vehicles" },
-    { title: "24/7 Power Backup", desc: "Full power backup for uninterrupted comfort" },
+    { title: "Private Adult Pool", desc: "Clean private swimming pool for adults with sun loungers" },
+    { title: "Mountain Views", desc: "Clear, open views of the surrounding Aravalli hills" },
+    { title: "Furnished AC Rooms", desc: "Air-conditioned bedrooms with attached bathrooms & hot water" },
+    { title: "Big Dining Hall", desc: "Large indoor dining hall with in-house kitchen meals" },
+    { title: "Garden & Lawn", desc: "Green grass lawn with open sitting area and evening bonfire" },
+    { title: "Bluetooth Speaker", desc: "Party speaker ready to connect to your phone for music" },
+    { title: "5-Car Parking", desc: "Safe, gated private parking inside the villa premises" },
+    { title: "24/7 Power Backup", desc: "Full power backup for continuous lights, fans, and ACs" },
   ],
 
   specs: [
@@ -134,113 +151,121 @@ export const villaData = {
       id: "starters",
       title: "Starters & Appetizers",
       badge: "Popular Bites",
+      image: "/images/menu/pakoda.webp",
       items: [
-        { name: "Roasted Papad", price: 30 },
-        { name: "Fry Papad", price: 40 },
-        { name: "Roasted Masala Papad", price: 50 },
-        { name: "Fry Masala Papad", price: 60 },
-        { name: "Green Salad", price: 100 },
-        { name: "Peanut Masala", price: 150 },
-        { name: "Channa Chaat", price: 150 },
-        { name: "French Fries", price: 150 },
-        { name: "Hara Bhara Kabab", price: 150, isSpecialty: true },
-        { name: "Dahi Kabab", price: 150, isSpecialty: true },
-        { name: "Veg Crispy Corn", price: 180 },
-        { name: "Paneer Chilli", price: 250, isSpecialty: true },
-        { name: "Paneer Pakoda", price: 220 },
-        { name: "Veg Chowmein", price: 230 },
-        { name: "Aloo Sandwich", price: 230 },
+        { name: "Roasted Papad", price: 30, image: "/images/menu/pakoda.webp" },
+        { name: "Fry Papad", price: 40, image: "/images/menu/pakoda.webp" },
+        { name: "Roasted Masala Papad", price: 50, isSpecialty: true, description: "Crisp roasted papad topped with diced onions, tomatoes, and spices", image: "/images/menu/pakoda.webp" },
+        { name: "Fry Masala Papad", price: 60, image: "/images/menu/pakoda.webp" },
+        { name: "Green Salad", price: 100, description: "Fresh seasonal greens with lemon and chaat masala", image: "/images/menu/green-salad.webp" },
+        { name: "Peanut Masala", price: 150, image: "/images/menu/poha.webp" },
+        { name: "Channa Chaat", price: 150, image: "/images/menu/poha.webp" },
+        { name: "French Fries", price: 150, description: "Crispy golden salted potato fries", image: "/images/menu/french-fries.webp" },
+        { name: "Hara Bhara Kabab", price: 150, isSpecialty: true, description: "Crispy pan-fried spinach and green pea patties", image: "/images/menu/pakoda.webp" },
+        { name: "Dahi Kabab", price: 150, isSpecialty: true, description: "Crispy outer crust with spiced hung-curd filling", image: "/images/menu/pakoda.webp" },
+        { name: "Veg Crispy Corn", price: 180, image: "/images/menu/french-fries.webp" },
+        { name: "Paneer Chilli", price: 250, isSpecialty: true, description: "Golden crispy cottage cheese tossed with bell peppers and chilli sauce", image: "/images/menu/kadai-paneer.webp" },
+        { name: "Paneer Pakoda", price: 220, description: "Gram flour battered soft paneer fritters with mint chutney", image: "/images/menu/pakoda.webp" },
+        { name: "Veg Chowmein", price: 230, description: "Stir-fried Hakka-style noodles loaded with shredded vegetables", image: "/images/menu/noodles.webp" },
+        { name: "Aloo Sandwich", price: 230, description: "Grilled spiced potato sandwich with butter", image: "/images/menu/sandwich.webp" },
       ],
     },
     {
       id: "main-course",
       title: "Main Course & Curries",
       badge: "Homestyle Delights",
+      image: "/images/menu/sev-tamatar.webp",
       items: [
-        { name: "Sev Tamatar", price: 180, description: "Classic Mewari comfort specialty with savory sev in spiced tomato gravy", isSpecialty: true },
-        { name: "Dahi Fry", price: 180, description: "Tempered spiced yogurt delicacy" },
-        { name: "Dal Fry", price: 200 },
-        { name: "Dal Tadka", price: 220, isSpecialty: true },
-        { name: "Aloo Jeera", price: 180 },
-        { name: "Aloo Pyaza", price: 150 },
-        { name: "Aloo Matar", price: 200 },
-        { name: "Kadhi Pyaz", price: 150 },
-        { name: "Kadhi Pakoda", price: 200, isSpecialty: true },
-        { name: "Bhindi Masala", price: 210 },
-        { name: "Boondi Raita", price: 100 },
-        { name: "Veg Raita", price: 110 },
+        { name: "Sev Tamatar", price: 180, description: "Classic Mewari comfort specialty with savory sev in spiced tomato gravy", isSpecialty: true, image: "/images/menu/sev-tamatar.webp" },
+        { name: "Dahi Fry", price: 180, description: "Tempered spiced yogurt delicacy", image: "/images/menu/dal-tadka.webp" },
+        { name: "Dal Fry", price: 200, description: "Yellow lentils cooked with aromatic Indian spices", image: "/images/menu/dal-tadka.webp" },
+        { name: "Dal Tadka", price: 220, isSpecialty: true, description: "Velvety yellow dal tempered with sizzled ghee, cumin, garlic & red chillies", image: "/images/menu/dal-tadka.webp" },
+        { name: "Aloo Jeera", price: 180, description: "Pan-roasted potatoes with crackling cumin seeds", image: "/images/menu/sev-tamatar.webp" },
+        { name: "Aloo Pyaza", price: 150, image: "/images/menu/sev-tamatar.webp" },
+        { name: "Aloo Matar", price: 200, description: "Potatoes and tender green peas in homestyle gravy", image: "/images/menu/sev-tamatar.webp" },
+        { name: "Kadhi Pyaz", price: 150, image: "/images/menu/dal-tadka.webp" },
+        { name: "Kadhi Pakoda", price: 200, isSpecialty: true, description: "Crisp onion-besan fritters in spiced turmeric yogurt gravy", image: "/images/menu/dal-tadka.webp" },
+        { name: "Bhindi Masala", price: 210, description: "Fresh okra sautéed with onions and dry mango spice", image: "/images/menu/sev-tamatar.webp" },
+        { name: "Boondi Raita", price: 100, description: "Crisp gram-flour pearls in seasoned whipped curd", image: "/images/menu/punjabi-lassi.webp" },
+        { name: "Veg Raita", price: 110, description: "Cool yogurt with diced cucumber, onions and mint", image: "/images/menu/punjabi-lassi.webp" },
       ],
     },
     {
       id: "paneer",
       title: "Paneer Delicacies",
       badge: "Chef's Specials",
+      image: "/images/menu/paneer-butter-masala.webp",
       items: [
-        { name: "Matar Paneer", price: 150 },
-        { name: "Kadai Paneer", price: 150 },
-        { name: "Paneer Butter Masala", price: 250, isSpecialty: true },
-        { name: "Paneer Tikka Masala", price: 250, isSpecialty: true },
-        { name: "Paneer Patiala", price: 300, isSpecialty: true },
-        { name: "Paneer Bhurji", price: 300 },
-        { name: "Lababdar Paneer", price: 350, isSpecialty: true },
+        { name: "Matar Paneer", price: 150, description: "Cottage cheese and sweet peas in spiced onion-tomato curry", image: "/images/menu/kadai-paneer.webp" },
+        { name: "Kadai Paneer", price: 150, isSpecialty: true, description: "Paneer cubes tossed with crisp bell peppers, onions and crushed whole spices", image: "/images/menu/kadai-paneer.webp" },
+        { name: "Paneer Butter Masala", price: 250, isSpecialty: true, description: "Silky soft paneer cubes in a rich, buttery tomato-cashew makhani gravy", image: "/images/menu/paneer-butter-masala.webp" },
+        { name: "Paneer Tikka Masala", price: 250, isSpecialty: true, description: "Char-grilled smoky paneer in rich spiced gravy", image: "/images/menu/paneer-butter-masala.webp" },
+        { name: "Paneer Patiala", price: 300, isSpecialty: true, image: "/images/menu/kadai-paneer.webp" },
+        { name: "Paneer Bhurji", price: 300, description: "Scrambled fresh paneer tossed with onions, tomatoes & coriander", image: "/images/menu/kadai-paneer.webp" },
+        { name: "Lababdar Paneer", price: 350, isSpecialty: true, description: "Royal rich gravy with grated and cubed paneer", image: "/images/menu/paneer-butter-masala.webp" },
       ],
     },
     {
       id: "breads",
       title: "Fresh Indian Breads",
       badge: "Clay & Tawa Bakes",
+      image: "/images/menu/makki-ki-roti.webp",
       items: [
-        { name: "Tawa Roti", price: 20 },
-        { name: "Butter Roti", price: 25 },
-        { name: "Butter Paratha", price: 30 },
-        { name: "Makki ki Roti", price: 25, description: "Authentic winter cornmeal flatbread", isSpecialty: true },
-        { name: "Lachha Paratha", price: 50 },
-        { name: "Aloo Paratha", price: 70 },
-        { name: "Paneer Paratha", price: 90 },
-        { name: "Onion Paratha", price: 70 },
+        { name: "Tawa Roti", price: 20, description: "Hot puffed whole wheat flatbread", image: "/images/menu/paratha.webp" },
+        { name: "Butter Roti", price: 25, description: "Freshly made tawa roti brushed with pure desi ghee", image: "/images/menu/paratha.webp" },
+        { name: "Butter Paratha", price: 30, description: "Layered crispy tawa paratha with butter", image: "/images/menu/paratha.webp" },
+        { name: "Makki ki Roti", price: 25, description: "Authentic winter cornmeal flatbread topped with melting butter", isSpecialty: true, image: "/images/menu/makki-ki-roti.webp" },
+        { name: "Lachha Paratha", price: 50, description: "Flaky, multi-layered spiral whole wheat flatbread", image: "/images/menu/paratha.webp" },
+        { name: "Aloo Paratha", price: 70, description: "Stuffed spiced potato paratha served hot with butter", image: "/images/menu/paratha.webp" },
+        { name: "Paneer Paratha", price: 90, description: "Rich stuffed cottage cheese flatbread", image: "/images/menu/paratha.webp" },
+        { name: "Onion Paratha", price: 70, description: "Spiced onion stuffed tawa paratha", image: "/images/menu/paratha.webp" },
       ],
     },
     {
       id: "rice",
       title: "Rice & Pulao",
+      image: "/images/menu/fried-rice.webp",
       items: [
-        { name: "Plain Rice", price: 110 },
-        { name: "Jeera Rice", price: 120 },
-        { name: "Fried Rice", price: 150 },
-        { name: "Dal Rice", price: 100 },
-        { name: "Veg Pulao", price: 160 },
+        { name: "Plain Rice", price: 110, description: "Steamed long-grain aromatic basmati rice", image: "/images/menu/fried-rice.webp" },
+        { name: "Jeera Rice", price: 120, description: "Basmati rice tempered with golden cumin and desi ghee", image: "/images/menu/fried-rice.webp" },
+        { name: "Fried Rice", price: 150, description: "Wok-tossed rice with crunchy vegetables and soy", image: "/images/menu/fried-rice.webp" },
+        { name: "Dal Rice", price: 100, description: "Comforting homestyle dal and rice bowl", image: "/images/menu/fried-rice.webp" },
+        { name: "Veg Pulao", price: 160, isSpecialty: true, description: "Fragrant saffron basmati rice with vegetables and whole spices", image: "/images/menu/fried-rice.webp" },
       ],
     },
     {
       id: "lassi-beverages",
       title: "Chach, Lassi & Refreshers",
       badge: "Cooling Traditions",
+      image: "/images/menu/punjabi-lassi.webp",
       items: [
-        { name: "Plain Chach", price: 30 },
-        { name: "Masala Chach", price: 40, isSpecialty: true },
-        { name: "Boondi Chach", price: 30 },
-        { name: "Punjabi Sweet Lassi", price: 60, isSpecialty: true },
+        { name: "Plain Chach", price: 30, description: "Traditional cooling churned buttermilk", image: "/images/menu/punjabi-lassi.webp" },
+        { name: "Masala Chach", price: 40, isSpecialty: true, description: "Chilled buttermilk spiced with roasted cumin, black salt and mint", image: "/images/menu/punjabi-lassi.webp" },
+        { name: "Boondi Chach", price: 30, description: "Buttermilk infused with crunchy boondi pearls", image: "/images/menu/punjabi-lassi.webp" },
+        { name: "Punjabi Sweet Lassi", price: 60, isSpecialty: true, description: "Thick creamy chilled yogurt lassi in clay kulhad with malai & saffron", image: "/images/menu/punjabi-lassi.webp" },
       ],
     },
     {
       id: "breakfast",
       title: "Breakfast & Morning Bites",
       badge: "Morning Spreads",
+      image: "/images/menu/poha.webp",
       items: [
-        { name: "Poha", price: 50, description: "Fluffy flattened rice with mustard seeds, peanuts & fresh coriander", isSpecialty: true },
-        { name: "Upma", price: 80 },
-        { name: "Aloo Paratha (with curd)", price: 70 },
-        { name: "Bread Butter (1 piece)", price: 30 },
-        { name: "Crispy Samosa", price: 30 },
+        { name: "Poha", price: 50, description: "Fluffy flattened rice with mustard seeds, peanuts, sev & fresh coriander", isSpecialty: true, image: "/images/menu/poha.webp" },
+        { name: "Upma", price: 80, description: "Traditional roasted semolina breakfast with curry leaves and cashews", image: "/images/menu/poha.webp" },
+        { name: "Aloo Paratha (with curd)", price: 70, description: "Stuffed potato flatbread served with fresh curd and pickle", image: "/images/menu/paratha.webp" },
+        { name: "Bread Butter (1 piece)", price: 30, image: "/images/menu/sandwich.webp" },
+        { name: "Crispy Samosa", price: 30, isSpecialty: true, description: "Flaky golden triangular pastry filled with spiced potatoes and peas", image: "/images/menu/samosa.webp" },
       ],
     },
     {
       id: "maggi",
       title: "Maggi & Quick Comfort",
+      image: "/images/menu/noodles.webp",
       items: [
-        { name: "Plain Maggi", price: 50 },
-        { name: "Veg Masala Maggi", price: 70 },
-        { name: "Paneer Maggi", price: 100, isSpecialty: true },
+        { name: "Plain Maggi", price: 50, description: "Classic hot Masala Maggi noodles", image: "/images/menu/noodles.webp" },
+        { name: "Veg Masala Maggi", price: 70, isSpecialty: true, description: "Spiced street-style Maggi loaded with fresh veggies and herbs", image: "/images/menu/noodles.webp" },
+        { name: "Paneer Maggi", price: 100, isSpecialty: true, description: "Steaming hot Maggi noodles topped with soft paneer cubes", image: "/images/menu/noodles.webp" },
       ],
     },
   ] as MenuCategory[],
@@ -485,10 +510,10 @@ export const villaData = {
     },
     {
       id: "g7",
-      url: "/images/villa/pool-night-villa.jpg",
-      title: "Night Swimming Pool & Villa Glow",
-      category: "pool",
-      caption: "Illuminated underwater pool lights with floating rings and lantern-lit villa",
+      url: "/images/villa/dining-lawn-bonfire.jpg",
+      title: "Lawn Bonfire & Barbecue Evening",
+      category: "outdoor",
+      caption: "Cozy bonfire setup on the lawn for memorable family gatherings",
     },
     {
       id: "g8",
@@ -610,7 +635,212 @@ export const villaData = {
       category: "pool",
       caption: "Evening pool relaxation with lounge recliners and illuminated water cascade",
     },
+    {
+      id: "g25",
+      url: "/images/villa/pool-night-gazebo.jpeg",
+      title: "Night Gazebo by Pool Deck",
+      category: "pool",
+      caption: "Elevated pool gazebo illuminated with warm ambient lanterns overlooking the pool",
+    },
+    {
+      id: "g26",
+      url: "/images/villa/pool-night-lights.jpeg",
+      title: "Underwater Pool Glow & Deck",
+      category: "pool",
+      caption: "Night swimming under star-filled Udaipur skies with clear illuminated water",
+    },
+    {
+      id: "g27",
+      url: "/images/villa/pool-view-balcony.jpg",
+      title: "Balcony Overlooking Pool & Hills",
+      category: "outdoor",
+      caption: "First-floor balcony vantage point showing the turquoise pool and green lawn below",
+    },
+    {
+      id: "g28",
+      url: "/images/villa/rooftop-rajasthani-chhatri.webp",
+      title: "Rajasthani Chhatri Pavilion",
+      category: "heritage",
+      caption: "Traditional carved Indian stone pavilion framing the sunset and mountain horizon",
+      featured: true,
+    },
+    {
+      id: "g29",
+      url: "/images/villa/room-deluxe-suite.jpeg",
+      title: "Deluxe Bedroom Suite",
+      category: "rooms",
+      caption: "Spacious air-conditioned deluxe suite with wardrobe, vanity area, and plush double bed",
+      featured: true,
+    },
+    {
+      id: "g30",
+      url: "/images/villa/room-deluxe-interior.jpg",
+      title: "Deluxe Interior & Seating",
+      category: "rooms",
+      caption: "Elegantly finished bedroom interior with ample natural lighting and air conditioning",
+    },
+    {
+      id: "g31",
+      url: "/images/villa/room-sofa-balcony.jpeg",
+      title: "Room Lounge & Private Balcony Access",
+      category: "rooms",
+      caption: "Cozy in-room sofa sitting area adjacent to sliding glass doors opening to mountain air",
+    },
+    {
+      id: "g32",
+      url: "/images/villa/lifestyle-bedroom-mirror.jpg",
+      title: "Bedroom Vanity & Dressing Area",
+      category: "rooms",
+      caption: "Full-height dressing mirror, warm room lighting, and wardrobe storage",
+    },
+    {
+      id: "g33",
+      url: "/images/villa/lifestyle-bedroom-mountain.jpg",
+      title: "Bedroom Window with Mountain Backdrop",
+      category: "rooms",
+      caption: "Wake up directly to unhindered views of the ancient Aravalli mountain ranges",
+    },
+    {
+      id: "g34",
+      url: "/images/villa/villa-lawn-architecture.jpg",
+      title: "Lawn & Modern Villa Elevation",
+      category: "villa",
+      caption: "Wide architectural view of Luxora Villa framed by landscaped greens and mountains",
+    },
+    {
+      id: "g35",
+      url: "/images/villa/lifestyle-resort-night.jpg",
+      title: "Nocturnal Villa Ambience",
+      category: "villa",
+      caption: "Serene night atmosphere with ambient perimeter lighting and cool hill breezes",
+    },
+    {
+      id: "g36",
+      url: "/images/villa/lifestyle-granite-stairs.jpg",
+      title: "Granite Staircase & Terrace Walkway",
+      category: "villa",
+      caption: "Polished granite staircase connecting the ground pool deck to upper viewing terraces",
+    },
+    {
+      id: "g37",
+      url: "/images/villa/villa-signature-collage.jpg",
+      title: "The Luxora Experience Collage",
+      category: "experiences",
+      caption: "A curated visual summary of pool, heritage arches, bedrooms, and dining",
+    },
   ] as VillaImage[],
+
+  // Dedicated Luxury Accommodations Data
+  rooms: [
+    {
+      id: "royal-master-suite",
+      name: "Royal Master Suite with Mountain Balcony",
+      tagline: "Panoramic Aravalli Vistas & Grand Space",
+      type: "Master Suite",
+      occupancy: "2-4 Adults",
+      bed: "King Size Bed + Extra Bed Available",
+      view: "Panoramic Aravalli Mountain & Pool View",
+      description:
+        "The premier suite at Luxora Villa. Features floor-to-ceiling glass doors opening onto a private balcony overlooking the mountain ridge. Elegantly furnished with polished marble flooring, whisper-quiet split air-conditioning, custom wardrobe, 55-inch Smart TV with Netflix/Prime, and a large ensuite bathroom with hot rain shower.",
+      features: [
+        "Private Balcony with Mountain Panorama",
+        "Air-Conditioning (Split AC with Remote)",
+        "55\" Smart LED TV with Netflix & Streaming",
+        "Marble Flooring & Custom Wardrobe Storage",
+        "Ensuite Bathroom with Overhead Rain Shower",
+        "24/7 Hot Water Geyser & Fresh Linens",
+      ],
+      amenities: ["AC", "Ensuite Bath", "Balcony", "Smart TV", "Mountain View", "Geyser 24/7", "Wi-Fi"],
+      images: [
+        { url: "/images/villa/room-master-bedroom.jpeg", caption: "Master King Bed with Marble Flooring" },
+        { url: "/images/villa/room-mountain-balcony.jpeg", caption: "Direct Sliding Glass Doors to Balcony" },
+        { url: "/images/villa/room-smart-tv-netflix.jpg", caption: "Smart TV with Netflix & Balcony Seating" },
+        { url: "/images/villa/bathroom-rain-shower.jpeg", caption: "Ensuite Bathroom with Rain Shower" },
+      ],
+      featured: true,
+    },
+    {
+      id: "deluxe-mountain-suite",
+      name: "Deluxe Mountain View Suite",
+      tagline: "Serene Comfort with Dedicated Sitting Lounge",
+      type: "Deluxe Suite",
+      occupancy: "2-3 Adults",
+      bed: "King Size Bed",
+      view: "Aravalli Hills & Garden View",
+      description:
+        "A spacious, light-filled suite featuring a comfortable sofa sitting lounge right by large picture windows. Ideal for relaxing with a cup of evening tea while watching the sun dip behind the hills. Fully air-conditioned with modern stone-counter ensuite bathroom.",
+      features: [
+        "In-Room Sofa Sitting Lounge",
+        "High-Power Split Air Conditioning",
+        "Scenic Window Framing Mountain Ridge",
+        "Modern Stone Vanity Attached Bathroom",
+        "Luggage Rack & Full-Length Mirror",
+        "High-Speed Wi-Fi & 24/7 Power Backup",
+      ],
+      amenities: ["AC", "Ensuite Bath", "Sofa Lounge", "Hill View", "Hot Water", "Wi-Fi"],
+      images: [
+        { url: "/images/villa/room-deluxe-suite.jpeg", caption: "Spacious Deluxe Suite with Sitting Area" },
+        { url: "/images/villa/room-deluxe-interior.jpg", caption: "Naturally Sunlit Bedroom Interior" },
+        { url: "/images/villa/room-sofa-balcony.jpeg", caption: "Relaxing Sofa Seating Area by Window" },
+        { url: "/images/villa/bathroom-modern-vanity.jpeg", caption: "Clean Modern Vanity Attached Bathroom" },
+      ],
+      featured: true,
+    },
+    {
+      id: "heritage-terrace-room",
+      name: "Heritage Balcony & Terrace Suite",
+      tagline: "Steps from the Rajasthani Sunset Rooftop",
+      type: "Heritage Suite",
+      occupancy: "2-3 Adults",
+      bed: "King Size Bed",
+      view: "Sunset Hills & Rooftop Chhatri",
+      description:
+        "Located on the upper level with instant access to the signature checkered rooftop terrace and carved Rajasthani chhatri. Boasts wide granite terrace walkways, dressing vanity, air conditioning, and unobstructed golden hour sunset views.",
+      features: [
+        "Instant Access to Heritage Rooftop Chhatri",
+        "Dressing Vanity & Full-Height Mirror",
+        "Upper Balcony Walkway with Hill Views",
+        "Air Conditioned Comfort with Soundproofing",
+        "Ensuite Bathroom with Fresh Towels & Geyser",
+        "Crisp Mountain Breeze in Morning & Evenings",
+      ],
+      amenities: ["AC", "Rooftop Access", "Ensuite Bath", "Sunset View", "Geyser 24/7", "Wi-Fi"],
+      images: [
+        { url: "/images/villa/lifestyle-bedroom-mirror.jpg", caption: "Dressing Vanity & Bedroom Mirror" },
+        { url: "/images/villa/lifestyle-bedroom-mountain.jpg", caption: "Window Framing Ancient Aravalli Hills" },
+        { url: "/images/villa/lifestyle-balcony-sunset.jpg", caption: "Terrace Walkway at Golden Sunset" },
+        { url: "/images/villa/rooftop-jharokha-sunset.jpeg", caption: "Steps to the Sunset Jharokha" },
+      ],
+      featured: false,
+    },
+    {
+      id: "garden-poolside-room",
+      name: "Garden & Pool View Executive Bedroom",
+      tagline: "Direct Step-Out Access to Pool Deck & Lawn",
+      type: "Garden Room",
+      occupancy: "2-3 Adults",
+      bed: "King Size Bed",
+      view: "Poolside Deck & Green Lawn",
+      description:
+        "Situated on the ground floor with direct patio access to the adult swimming pool deck and green garden sitting area. Perfect for morning swimmers and families desiring zero stairs and effortless movement between bedrooms and the pool.",
+      features: [
+        "Ground Floor Easy Access (No Stairs Required)",
+        "Direct Walk-Out to Swimming Pool & Garden",
+        "Split Air Conditioning & Quiet Ambience",
+        "Ensuite Attached Bathroom",
+        "Convenient for Elders & Young Children",
+        "Immediate Access to the Dining Hall",
+      ],
+      amenities: ["Ground Floor", "Pool Deck Step-Out", "AC", "Ensuite Bath", "Garden View", "Wi-Fi"],
+      images: [
+        { url: "/images/villa/villa-facade-patio.jpeg", caption: "Patio Step-Out to Pool Deck" },
+        { url: "/images/villa/pool-daylight-deck.webp", caption: "Adult Swimming Pool Just Steps Away" },
+        { url: "/images/villa/garden-lawn-sunlight.jpg", caption: "Manicured Green Lawn Outside" },
+        { url: "/images/villa/room-deluxe-interior.jpg", caption: "Comfortable Air Conditioned Bedroom" },
+      ],
+      featured: false,
+    },
+  ] as RoomDetail[],
 
   guestImpressions: [
     {

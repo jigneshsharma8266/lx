@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   MapPin,
   Navigation,
@@ -243,6 +244,14 @@ export default function LocationSection() {
                 <MapPin className="w-3.5 h-3.5 text-[#C5A880]" />
                 <span>Google Maps Pin</span>
               </a>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-[#12161D] border border-[#C5A880]/40 text-[#D2CBC1] hover:text-[#C5A880] text-xs font-semibold tracking-wider uppercase transition-all whitespace-nowrap"
+              >
+                <span>Contact & Transit Guide</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#C5A880]" />
+              </Link>
             </div>
           </div>
         </div>

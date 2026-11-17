@@ -1,17 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Introduction from "@/components/Introduction";
-import VillaExperiences from "@/components/VillaExperiences";
-import PoolSection from "@/components/PoolSection";
-import DiningSection from "@/components/DiningSection";
-import OutdoorSection from "@/components/OutdoorSection";
-import Villa3DViewer from "@/components/Villa3DViewer";
-import GallerySection from "@/components/GallerySection";
+import EstateShowcase from "@/components/EstateShowcase";
 import GuestExperience from "@/components/GuestExperience";
-import LocationSection from "@/components/LocationSection";
 import BookingSection from "@/components/BookingSection";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
@@ -27,11 +21,7 @@ export default function Home() {
     }
   }, []);
 
-  const handleQuickBook = (bookingData: {
-    checkIn: string;
-    checkOut: string;
-    guests: string;
-  }) => {
+  const handleQuickBook = () => {
     const bookingEl = document.getElementById("booking");
     if (bookingEl) {
       bookingEl.scrollIntoView({ behavior: "smooth" });
@@ -58,35 +48,17 @@ export default function Home() {
         {/* B. Introduction & Architecture Narrative */}
         <Introduction />
 
-        {/* C. The Villa Experience (7 Experiences) */}
-        <VillaExperiences onReserve={scrollToBooking} />
+        {/* C. Editorial Estate Showcase (Leading directly to dedicated /rooms, /gallery, /experiences, /menu, /3d, /contact pages) */}
+        <EstateShowcase />
 
-        {/* E. Swimming Pool Spotlight (Day / Twilight Ambient Toggle) */}
-        <PoolSection />
-
-        {/* D. Food & Bespoke Dining */}
-        <DiningSection />
-
-        {/* F. Outdoor Fun & Activities (Playground, Lawns, Firepit) */}
-        <OutdoorSection />
-
-        {/* 6. 3D Architectural Villa Model & 2.5D Depth Experience */}
-        <Villa3DViewer />
-
-        {/* G. Curated Interactive Photo Gallery with Lightbox */}
-        <GallerySection />
-
-        {/* H. Guest Experience & Impressions */}
+        {/* D. Guest Experience & Verified Reviews */}
         <GuestExperience />
 
-        {/* I. Location & Arrival */}
-        <LocationSection />
-
-        {/* J. Booking CTA with Direct WhatsApp Integration */}
+        {/* E. Direct Reservation Section */}
         <BookingSection />
       </main>
 
-      {/* K. Footer */}
+      {/* Footer */}
       <Footer />
 
       {/* Floating Concierge WhatsApp Widget */}

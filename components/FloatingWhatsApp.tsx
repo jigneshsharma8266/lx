@@ -52,22 +52,18 @@ export default function FloatingWhatsApp() {
         </div>
       )}
 
-      {/* Main Floating WhatsApp Pulse Button */}
+      {/* Main Floating WhatsApp Button */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Luxora Villa on WhatsApp"
-        className="group relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-[#20ba5a] to-[#2ce872] flex items-center justify-center text-white shadow-2xl shadow-[#25D366]/40 hover:scale-110 active:scale-95 transition-all duration-300"
+        className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20ba59] flex items-center justify-center text-white shadow-xl shadow-black/60 transition-transform duration-200 hover:scale-105"
       >
-        {/* Pulsing ring animation */}
-        <span className="absolute -inset-1 rounded-full bg-[#25D366] opacity-35 animate-ping pointer-events-none" />
-        <span className="absolute inset-0 rounded-full bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+        <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 fill-current relative z-10" />
 
-        <MessageCircle className="w-7 h-7 sm:w-7.5 sm:h-7.5 fill-current relative z-10 drop-shadow-md" />
-
-        {/* Online Status Green Dot */}
-        <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-emerald-300 border-2 border-[#080B0E] rounded-full z-20" />
+        {/* Online Status Dot */}
+        <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-emerald-200 border-2 border-[#080B0E] rounded-full z-20" />
       </a>
     </div>
   );

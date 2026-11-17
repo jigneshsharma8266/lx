@@ -16,11 +16,18 @@ import {
 } from "lucide-react";
 import { villaData } from "@/data/villaData";
 
-export default function BookingSection() {
+interface BookingSectionProps {
+  embedded?: boolean;
+  showHeading?: boolean;
+}
+
+export default function BookingSection({
+  embedded = false,
+  showHeading = true,
+}: BookingSectionProps) {
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "",
     checkIn: "",
     checkOut: "",
     guests: "4 Guests",
@@ -30,74 +37,117 @@ export default function BookingSection() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [minDate, setMinDate] = useState("");
+
+  React.useEffect(() => {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    setMinDate(`${yyyy}-${mm}-${dd}`);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "checkIn") {
+      setFormData((prev) => ({
+        ...prev,
+        checkIn: value,
+        checkOut: prev.checkOut && prev.checkOut < value ? value : prev.checkOut,
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
-  // Generate customized WhatsApp prefilled message matching owner booking flow
+  // Generate cleanly formatted WhatsApp text with availability check & stay inquiry details
+  const buildWhatsAppMessage = () => {
+    const lines = [
+      `*Check Availability & Stay Enquiry — Luxora Villa, Udaipur*`,
+      ``,
+      `Hello Luxora Villa! I would like to check availability and enquire about booking for a private stay:`,
+      ``,
+      `*Guest Name:* ${formData.name.trim() || "Guest"}`,
+      `*Phone Number:* ${formData.phone.trim() || "Not specified"}`,
+      `*Check-In Date:* ${formData.checkIn || "Flexible / Not selected"}`,
+      `*Check-Out Date:* ${formData.checkOut || "Flexible / Not selected"}`,
+      `*Number of Guests:* ${formData.guests}`,
+      `*Stay Occasion:* ${formData.occasion}`,
+      formData.message.trim() ? `*Special Requests / Notes:* ${formData.message.trim()}` : null,
+      ``,
+      `Please let me know if the villa is available for these dates and share the best booking rates. Thank you!`,
+    ].filter((line) => line !== null);
+
+    return encodeURIComponent(lines.join("\n"));
+  };
+
   const generateWhatsAppUrl = () => {
-    const text = `Hello Luxora Villa, Udaipur!%0A%0AI would like to enquire about bookings & availability:%0A• Check-in Date: ${encodeURIComponent(
-      formData.checkIn || "Please specify"
-    )}%0A• Check-out Date: ${encodeURIComponent(
-      formData.checkOut || "Please specify"
-    )}%0A• Number of Guests: ${encodeURIComponent(formData.guests)}%0A• Guest Name: ${encodeURIComponent(
-      formData.name || "Guest"
-    )}%0A• Phone: ${encodeURIComponent(
-      formData.phone || "Not specified"
-    )}%0A• Stay Type: ${encodeURIComponent(formData.occasion)}%0A• Message: ${encodeURIComponent(
-      formData.message || "Please let me know the best available options."
-    )}`;
-    return `https://wa.me/${villaData.contact.whatsappNumber}?text=${text}`;
+    const encoded = buildWhatsAppMessage();
+    return `https://wa.me/${villaData.contact.whatsappNumber}?text=${encoded}`;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate enquiry registration (ready for backend API or webhook)
+    const waUrl = generateWhatsAppUrl();
+
+    // Open WhatsApp directly with prefilled booking message
+    if (typeof window !== "undefined") {
+      window.open(waUrl, "_blank");
+    }
+
     setTimeout(() => {
       setIsLoading(false);
       setIsSubmitted(true);
-    }, 800);
+    }, 400);
   };
 
   return (
-    <section id="booking" className="relative py-24 sm:py-32 bg-[#080B0E] text-[#F3EFE6] overflow-hidden">
+    <section
+      id="booking"
+      className={`relative text-[#F3EFE6] overflow-hidden ${
+        embedded ? "py-2 sm:py-4" : "py-24 sm:py-32 bg-[#080B0E]"
+      }`}
+    >
       {/* Decorative ambient backdrop */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] max-w-[90vw] h-[700px] bg-[#C5A880]/10 rounded-full blur-[180px] pointer-events-none" />
+      {!embedded && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] max-w-[90vw] h-[700px] bg-[#C5A880]/10 rounded-full blur-[180px] pointer-events-none" />
+      )}
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className={`relative z-10 max-w-5xl mx-auto ${embedded ? "px-0" : "px-4 sm:px-6 lg:px-8"}`}>
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#C5A880]/30 text-[10px] sm:text-xs tracking-[0.3em] uppercase text-[#C5A880] mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-            <span>Private Reservation</span>
+        {showHeading && (
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#C5A880]/30 text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#C5A880] mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880]" />
+              <span>Check Availability & Enquire</span>
+            </div>
+            <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#F8F5EE]">
+              Check Availability & <br />
+              <span className="italic font-serif gold-text-gradient">Enquire for Stay</span>
+            </h2>
+            <p className="mt-4 text-xs sm:text-base text-[#A69E92] font-light leading-relaxed">
+              Check your preferred dates and enquire directly with the property host on WhatsApp (+91 86909 55700). Get live availability, buyout rates, and complete details for your group stay.
+            </p>
           </div>
-          <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#F8F5EE]">
-            Your Escape <br />
-            <span className="italic font-serif gold-text-gradient">Is Waiting.</span>
-          </h2>
-          <p className="mt-4 text-xs sm:text-base text-[#A69E92] font-light leading-relaxed">
-            Reserve the entire villa for your exclusive use. Submit your dates below for direct priority confirmation with our estate host.
-          </p>
-        </div>
+        )}
 
         {/* Enquiry Form Card */}
-        <div className="rounded-3xl glass-panel border border-[#C5A880]/25 p-6 sm:p-10 lg:p-12 shadow-2xl relative">
+        <div className={`rounded-3xl glass-panel border border-[#C5A880]/25 shadow-2xl relative ${embedded ? "p-6 sm:p-8 lg:p-10" : "p-6 sm:p-10 lg:p-12"}`}>
           {isSubmitted ? (
             /* Success Confirmation Screen */
             <div className="text-center py-12 flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-[#C5A880]/20 border border-[#C5A880] flex items-center justify-center text-[#C5A880] mb-6 animate-bounce">
+              <div className="w-16 h-16 rounded-full bg-[#25D366]/20 border border-[#25D366] flex items-center justify-center text-[#25D366] mb-6">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h3 className="font-serif text-3xl sm:text-4xl text-[#F8F5EE] mb-3">
-                Enquiry Received with Pleasure
+                Enquiry Ready on WhatsApp
               </h3>
               <p className="text-sm sm:text-base text-[#D2CBC1] font-light max-w-lg mb-8 leading-relaxed">
-                Thank you, <span className="text-[#C5A880] font-medium">{formData.name || "Guest"}</span>. Our estate concierge will review your preferred dates ({formData.checkIn || "Upcoming"} to {formData.checkOut || "Upcoming"}) and contact you promptly via phone/WhatsApp.
+                Thank you, <span className="text-[#C5A880] font-medium">{formData.name || "Guest"}</span>! Your availability check and inquiry for <span className="text-white font-medium">{formData.checkIn || "Dates"}</span> to <span className="text-white font-medium">{formData.checkOut || "Dates"}</span> ({formData.guests}) has been prepared for host <span className="text-white font-medium">+91 86909 55700</span>.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4">
@@ -105,16 +155,16 @@ export default function BookingSection() {
                   href={generateWhatsAppUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-[#25D366] text-black font-semibold text-xs tracking-wider uppercase hover:bg-white transition-all flex items-center gap-2 shadow-lg"
+                  className="px-8 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-black font-bold text-xs tracking-wider uppercase transition-all flex items-center gap-2.5 shadow-xl shadow-[#25D366]/25"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Instant WhatsApp Follow-Up</span>
+                  <MessageCircle className="w-4 h-4 fill-current" />
+                  <span>Click to Open WhatsApp Message</span>
                 </a>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="px-6 py-3 rounded-full glass-panel border border-white/20 text-xs tracking-wider uppercase text-[#D2CBC1] hover:text-white"
+                  className="px-6 py-3.5 rounded-full glass-panel border border-white/20 text-xs tracking-wider uppercase text-[#D2CBC1] hover:text-white transition-colors"
                 >
-                  Submit Another Enquiry
+                  Edit Dates / Check Another
                 </button>
               </div>
             </div>
@@ -134,9 +184,10 @@ export default function BookingSection() {
                       type="date"
                       name="checkIn"
                       required
+                      min={minDate}
                       value={formData.checkIn}
                       onChange={handleChange}
-                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors [color-scheme:dark]"
+                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-3 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors [color-scheme:dark]"
                     />
                   </div>
                 </div>
@@ -152,9 +203,10 @@ export default function BookingSection() {
                       type="date"
                       name="checkOut"
                       required
+                      min={formData.checkIn || minDate}
                       value={formData.checkOut}
                       onChange={handleChange}
-                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors [color-scheme:dark]"
+                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-3 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors [color-scheme:dark]"
                     />
                   </div>
                 </div>
@@ -170,9 +222,9 @@ export default function BookingSection() {
                       name="guests"
                       value={formData.guests}
                       onChange={handleChange}
-                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors cursor-pointer [color-scheme:dark]"
+                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-3 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors cursor-pointer [color-scheme:dark]"
                     >
-                      <option value="2 Guests (Couples Retreat)">2 Guests (Couples Retreat)</option>
+                      <option value="2 Guests (Couples Retreat)">2 Guests (Couples)</option>
                       <option value="4 Guests">4 Guests</option>
                       <option value="6 Guests">6 Guests</option>
                       <option value="8 Guests (Family)">8 Guests (Family)</option>
@@ -189,25 +241,25 @@ export default function BookingSection() {
                     Stay Type
                   </label>
                   <div className="relative flex items-center">
-                    <Sparkles className="w-4 h-4 text-[#C5A880]/70 absolute left-3.5 pointer-events-none" />
+                    <Calendar className="w-4 h-4 text-[#C5A880]/70 absolute left-3.5 pointer-events-none" />
                     <select
                       name="occasion"
                       value={formData.occasion}
                       onChange={handleChange}
-                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors cursor-pointer [color-scheme:dark]"
+                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-3 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors cursor-pointer [color-scheme:dark]"
                     >
                       <option value="Private Vacation">Private Vacation</option>
-                      <option value="Romantic Anniversary">Romantic Anniversary</option>
+                      <option value="Romantic Anniversary">Romantic Getaway</option>
                       <option value="Family Holiday">Family Holiday</option>
-                      <option value="Milestone Birthday">Milestone Birthday</option>
+                      <option value="Milestone Birthday">Birthday / Celebration</option>
                       <option value="Friends Getaway">Friends Getaway</option>
                     </select>
                   </div>
                 </div>
               </div>
 
-              {/* Row 2: Name, Phone, Email */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Row 2: Name & Phone (No Email needed) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Name */}
                 <div className="space-y-1.5">
                   <label className="block text-[10px] tracking-[0.2em] uppercase text-[#C5A880] font-medium">
@@ -219,7 +271,7 @@ export default function BookingSection() {
                       type="text"
                       name="name"
                       required
-                      placeholder="e.g. Jordan Hayes"
+                      placeholder="Enter name"
                       value={formData.name}
                       onChange={handleChange}
                       className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors"
@@ -238,26 +290,8 @@ export default function BookingSection() {
                       type="tel"
                       name="phone"
                       required
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="Enter phone number"
                       value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors"
-                    />
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="space-y-1.5">
-                  <label className="block text-[10px] tracking-[0.2em] uppercase text-[#C5A880] font-medium">
-                    Email Address
-                  </label>
-                  <div className="relative flex items-center">
-                    <Mail className="w-4 h-4 text-[#C5A880]/70 absolute left-3.5 pointer-events-none" />
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="jordan@example.com"
-                      value={formData.email}
                       onChange={handleChange}
                       className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors"
                     />
@@ -275,7 +309,7 @@ export default function BookingSection() {
                   <textarea
                     name="message"
                     rows={3}
-                    placeholder="Mention any dining preferences, private chef requirements, early check-in requests, or special celebrations..."
+                    placeholder="Any special requests or food preferences (optional)"
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full bg-[#0F1318] border border-[#C5A880]/20 rounded-xl py-2.5 pl-10 pr-3 text-xs sm:text-sm text-[#F3EFE6] focus:outline-none focus:border-[#C5A880] transition-colors resize-none"
@@ -283,31 +317,30 @@ export default function BookingSection() {
                 </div>
               </div>
 
-              {/* Submit Actions & WhatsApp Direct CTA */}
-              <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 border-t border-[#C5A880]/15">
-                {/* Direct WhatsApp Enquiry Button */}
+              {/* Submit Actions & WhatsApp Direct CTA - Perfectly Equal & Symmetrical */}
+              <div className="pt-5 grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-[#C5A880]/15">
+                {/* Direct Call Host Option */}
                 <a
-                  href={generateWhatsAppUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/40 text-[#25D366] text-xs font-semibold tracking-wider uppercase transition-all flex items-center justify-center gap-2"
+                  href={`tel:${villaData.contact.phone.replace(/\s+/g, "")}`}
+                  className="h-14 w-full px-4 sm:px-6 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-[#C5A880]/40 hover:border-[#C5A880] text-[#F3EFE6] hover:text-white text-xs sm:text-[13px] lg:text-sm font-semibold tracking-wider uppercase transition-all flex items-center justify-center gap-2.5 whitespace-nowrap shadow-sm text-center"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Enquire via WhatsApp Direct</span>
+                  <Phone className="w-4 h-4 text-[#C5A880] shrink-0" />
+                  <span>Call: {villaData.contact.phone}</span>
                 </a>
 
                 {/* Primary Submit Button */}
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#C5A880] via-[#D4BC9B] to-[#AD8F6F] text-[#080B0E] font-bold text-xs tracking-[0.2em] uppercase shadow-xl shadow-[#C5A880]/20 hover:shadow-[#C5A880]/35 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                  className="h-14 w-full px-4 sm:px-6 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-black font-semibold text-xs sm:text-[13px] lg:text-sm tracking-wider uppercase transition-all flex items-center justify-center gap-2.5 whitespace-nowrap shadow-md cursor-pointer text-center"
                 >
                   {isLoading ? (
-                    <span>Registering Enquiry...</span>
+                    <span>Checking Availability...</span>
                   ) : (
                     <>
-                      <Send className="w-4 h-4" />
-                      <span>Submit Private Stay Enquiry</span>
+                      <MessageCircle className="w-4 h-4 fill-black text-black shrink-0" />
+                      <span className="hidden sm:inline">Check Availability & Enquire on WhatsApp</span>
+                      <span className="sm:hidden">Enquire on WhatsApp</span>
                     </>
                   )}
                 </button>

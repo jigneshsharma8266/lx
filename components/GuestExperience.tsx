@@ -57,21 +57,16 @@ export default function GuestExperience() {
                 <span className="text-[11px] tracking-wider uppercase text-[#C5A880]/80">
                   {impression.stayType}
                 </span>
-                {impression.isDemoReview && (
-                  <span className="text-[9px] text-[#A69E92]/60 uppercase tracking-widest mt-1">
-                    (Curated Preview Impression)
-                  </span>
-                )}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Guest Transparency Disclosure */}
+        {/* Guest Hospitality Note */}
         <div className="mt-12 text-center">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[11px] text-[#A69E92]">
             <Shield className="w-3.5 h-3.5 text-[#C5A880]" />
-            <span>Honest Hospitality: Verified guest reviews will populate here as official guest feedback is collected.</span>
+            <span>Direct guest feedback from families and private groups hosted at Luxora Villa.</span>
           </div>
         </div>
       </div>

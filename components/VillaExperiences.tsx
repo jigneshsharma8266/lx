@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Check, ChevronRight, Eye, Calendar, ArrowRight } from "lucide-react";
 import { villaData, ExperienceItem } from "@/data/villaData";
@@ -125,13 +126,19 @@ export default function VillaExperiences({ onReserve }: { onReserve?: () => void
                 >
                   Book This Experience
                 </a>
-                <a
-                  href="#gallery"
+                <Link
+                  href="/experiences"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#E8D8BF] hover:text-[#C5A880] tracking-wider uppercase transition-colors"
+                >
+                  <span>Explore All Experiences</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#C5A880]" />
+                </Link>
+                <Link
+                  href="/rooms"
                   className="inline-flex items-center gap-1.5 text-xs text-[#A69E92] hover:text-[#C5A880] tracking-wider uppercase transition-colors"
                 >
-                  <Eye className="w-3.5 h-3.5 text-[#C5A880]" />
-                  <span>View in Gallery</span>
-                </a>
+                  <span>Suites & Rooms</span>
+                </Link>
               </div>
             </div>
           </motion.div>

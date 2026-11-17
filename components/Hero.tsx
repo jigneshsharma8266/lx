@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Calendar, Users, ArrowDown, Sparkles, MessageCircle, ShieldCheck } from "lucide-react";
 import { villaData } from "@/data/villaData";
@@ -14,6 +15,22 @@ export default function Hero({ onQuickBook }: HeroProps) {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [guests, setGuests] = useState("4 Guests");
+  const [minDate, setMinDate] = useState("");
+
+  React.useEffect(() => {
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    setMinDate(`${yyyy}-${mm}-${dd}`);
+  }, []);
+
+  const handleCheckInChange = (val: string) => {
+    setCheckIn(val);
+    if (checkOut && checkOut < val) {
+      setCheckOut(val);
+    }
+  };
 
   const handleHeroSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +40,8 @@ export default function Hero({ onQuickBook }: HeroProps) {
     const bookingEl = document.getElementById("booking");
     if (bookingEl) {
       bookingEl.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.href = `/book`;
     }
   };
 
@@ -45,41 +64,41 @@ export default function Hero({ onQuickBook }: HeroProps) {
       </div>
 
       {/* Floating Status Pill */}
-      <div className="relative z-10 inline-flex items-center gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full glass-panel text-[10px] sm:text-xs tracking-[0.2em] sm:tracking-[0.25em] uppercase text-[#E5D5C0] border border-[#C5A880]/30 shadow-lg shadow-black/50 mb-3 sm:mb-4 animate-fade-in">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] animate-ping" />
-        <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] -ml-2 sm:-ml-2.5" />
+      <div className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#080B0E]/80 backdrop-blur-md text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#E5D5C0] border border-[#C5A880]/30 shadow-lg mb-3 sm:mb-4">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880]" />
         <span className="font-medium text-[#C5A880]">Luxora Villa, Udaipur</span>
         <span className="text-[#C5A880]/40">•</span>
-        <span className="text-[#D2CBC1] font-serif italic capitalize tracking-normal sm:tracking-wider">Stay Grand. Stay Luxora.</span>
+        <span className="text-[#D2CBC1]">Private Adult Pool & Mountain Views</span>
       </div>
 
       {/* Central Headline Content */}
       <div className="relative z-10 max-w-4xl mx-auto my-auto flex flex-col items-center">
-        <p className="text-[10px] sm:text-xs tracking-[0.3em] sm:tracking-[0.35em] uppercase text-[#C5A880] font-sans font-medium mb-2 sm:mb-3">
+        <p className="text-[10px] sm:text-xs tracking-[0.25em] uppercase text-[#C5A880] font-sans font-medium mb-2 sm:mb-3">
           {villaData.meta.brandCollection}
         </p>
 
-        <h1 className="font-serif text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-normal tracking-tight text-[#F8F5EE] leading-[0.98] sm:leading-[0.95] mb-4 sm:mb-8">
-          Escape the <span className="italic font-serif gold-text-gradient">Ordinary.</span>
+        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-[#F8F5EE] leading-[1.05] mb-4 sm:mb-6">
+          Your Private Villa <br className="hidden sm:inline" />
+          <span className="italic font-serif gold-text-gradient">in Udaipur.</span>
         </h1>
 
-        <p className="max-w-2xl text-sm sm:text-xl text-[#D2CBC1] font-light leading-relaxed mb-6 sm:mb-10 px-2 sm:px-4">
+        <p className="max-w-2xl text-sm sm:text-lg text-[#D2CBC1] font-light leading-relaxed mb-6 sm:mb-8 px-2 sm:px-4">
           {villaData.meta.heroSubtitle}
         </p>
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto">
-          <a
-            href="#booking"
-            className="w-full sm:w-auto px-7 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r from-[#C5A880] via-[#D4BC9B] to-[#AD8F6F] text-[#080B0E] text-[11px] sm:text-xs font-bold tracking-[0.18em] sm:tracking-[0.2em] uppercase shadow-xl shadow-[#C5A880]/25 hover:shadow-[#C5A880]/40 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98]"
+          <Link
+            href="/book"
+            className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-full bg-[#C5A880] hover:bg-[#D4BC9B] text-[#080B0E] text-xs font-semibold tracking-wider uppercase transition-colors text-center shadow-lg shadow-black/40"
           >
-            Reserve Your Stay
-          </a>
+            Check Availability
+          </Link>
           <a
             href="#intro"
-            className="w-full sm:w-auto px-7 sm:px-8 py-3 sm:py-3.5 rounded-full glass-panel hover:bg-white/10 text-[#F3EFE6] text-[11px] sm:text-xs font-medium tracking-[0.18em] sm:tracking-[0.2em] uppercase border border-[#C5A880]/30 hover:border-[#C5A880] transition-all duration-300"
+            className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-full bg-white/5 hover:bg-white/10 text-[#F3EFE6] text-xs font-medium tracking-wider uppercase border border-white/20 hover:border-[#C5A880] transition-colors text-center"
           >
-            Explore the Villa
+            Explore Spaces
           </a>
         </div>
       </div>
@@ -100,7 +119,8 @@ export default function Hero({ onQuickBook }: HeroProps) {
               <input
                 type="date"
                 value={checkIn}
-                onChange={(e) => setCheckIn(e.target.value)}
+                min={minDate}
+                onChange={(e) => handleCheckInChange(e.target.value)}
                 className="bg-transparent text-[#F3EFE6] text-xs sm:text-sm focus:outline-none w-full [color-scheme:dark]"
                 placeholder="Select date"
               />
@@ -117,6 +137,7 @@ export default function Hero({ onQuickBook }: HeroProps) {
               <input
                 type="date"
                 value={checkOut}
+                min={checkIn || minDate}
                 onChange={(e) => setCheckOut(e.target.value)}
                 className="bg-transparent text-[#F3EFE6] text-xs sm:text-sm focus:outline-none w-full [color-scheme:dark]"
                 placeholder="Select date"
@@ -148,9 +169,9 @@ export default function Hero({ onQuickBook }: HeroProps) {
           {/* Check Availability CTA */}
           <button
             type="submit"
-            className="sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full bg-[#C5A880] hover:bg-[#D4BC9B] text-[#080B0E] font-semibold text-[11px] sm:text-xs tracking-[0.14em] sm:tracking-[0.16em] uppercase transition-all duration-300 shadow-md shadow-[#C5A880]/20 flex items-center justify-center gap-2"
+            className="sm:w-auto px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full bg-[#C5A880] hover:bg-[#D4BC9B] text-[#080B0E] font-semibold text-[11px] sm:text-xs tracking-wider uppercase transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
           >
-            <Sparkles className="w-3.5 h-3.5" />
+            <Calendar className="w-3.5 h-3.5" />
             <span>Check Availability</span>
           </button>
         </form>

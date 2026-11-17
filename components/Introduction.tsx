@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Sparkles, Check, Shield, Compass, ArrowRight } from "lucide-react";
 import { villaData } from "@/data/villaData";
@@ -15,36 +16,36 @@ export default function Introduction() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header Tag */}
-        <div className="flex flex-col items-center text-center mb-16 sm:mb-20">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#C5A880]/30 text-[10px] sm:text-xs tracking-[0.3em] uppercase text-[#C5A880] mb-4">
-            <span className="font-serif italic text-sm">I.</span> The Philosophy
+        <div className="flex flex-col items-center text-center mb-14 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#12161D] border border-[#C5A880]/30 text-xs tracking-[0.2em] uppercase text-[#C5A880] mb-3">
+            <span>Welcome to Luxora Villa</span>
           </div>
-          <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-[#F8F5EE] max-w-4xl leading-[1.08]">
-            More Than a Stay. <br />
-            <span className="italic font-serif gold-text-gradient">An Entire Experience.</span>
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#F8F5EE] max-w-3xl leading-[1.15]">
+            A Peaceful Private Villa <br />
+            <span className="italic font-serif gold-text-gradient">in the Udaipur Foothills.</span>
           </h2>
         </div>
 
         {/* Editorial Asymmetric Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center mb-20">
           {/* Left Column: Brand Narrative & Key Values (5 Cols) */}
-          <div className="lg:col-span-5 flex flex-col justify-center space-y-6 lg:pr-6">
-            <p className="text-lg sm:text-xl text-[#F3EFE6] font-light leading-relaxed">
+          <div className="lg:col-span-5 flex flex-col justify-center space-y-5 lg:pr-6">
+            <p className="text-base sm:text-lg text-[#F3EFE6] font-light leading-relaxed">
               {villaData.meta.introBody1}
             </p>
-            <p className="text-sm sm:text-base text-[#B0A799] font-light leading-relaxed">
+            <p className="text-sm text-[#A69E92] font-light leading-relaxed">
               {villaData.meta.introBody2}
             </p>
 
-            {/* Feature Checklist */}
-            <div className="pt-4 space-y-3.5 border-t border-[#C5A880]/15">
+            {/* Feature Checklist in Simple, Real Words */}
+            <div className="pt-3 space-y-3 border-t border-[#C5A880]/15">
               {[
-                "Private Swimming Pool (Adults) with Open Sun Deck",
-                "Fully Furnished Bedrooms with Air Conditioning (AC)",
-                "Spacious Dining Hall & Authentic Kitchen Menu (Sev Tamatar, Paneer, Rotis)",
-                "Beautiful Garden & Outdoor Sitting Area with Mountain Views",
-                "Bluetooth Speaker for Music & Private Gatherings",
-                "Private On-Site Parking for up to 5 Cars & 24/7 Power Backup",
+                "Private adult swimming pool with open sun deck & loungers",
+                "Fully furnished air-conditioned bedrooms with mountain balconies",
+                "Large indoor dining hall with in-house kitchen (Sev Tamatar, Dal, Paneer, fresh Rotis)",
+                "Green garden lawn with mountain views & outdoor sitting area",
+                "Bluetooth party speaker ready for your music and gatherings",
+                "Gated on-site parking for up to 5 cars with 24/7 power backup",
               ].map((point, index) => (
                 <div key={index} className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-[#C5A880]/15 border border-[#C5A880]/30 flex items-center justify-center shrink-0 mt-0.5">
@@ -55,14 +56,21 @@ export default function Introduction() {
               ))}
             </div>
 
-            <div className="pt-4 flex items-center gap-4">
-              <a
-                href="#experiences"
-                className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] uppercase text-[#C5A880] hover:text-[#E0CDB5] transition-colors group"
+            <div className="pt-4 flex flex-wrap items-center gap-4">
+              <Link
+                href="/rooms"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#C5A880] text-[#080B0E] text-xs font-semibold tracking-[0.16em] uppercase hover:scale-105 transition-all shadow-md shadow-[#C5A880]/20"
               >
-                <span>Explore All 7 Villa Experiences</span>
-                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" />
-              </a>
+                <span>View Suites & Rooms</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <Link
+                href="/gallery"
+                className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase text-[#D2CBC1] hover:text-[#C5A880] transition-colors group"
+              >
+                <span>Photo Gallery</span>
+                <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform text-[#C5A880]" />
+              </Link>
             </div>
           </div>
 
@@ -79,29 +87,29 @@ export default function Introduction() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
               {/* Inset Photo Overlay Badge */}
-              <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-md p-4 rounded-xl glass-panel border border-[#C5A880]/30 shadow-xl">
-                <p className="text-[10px] tracking-[0.25em] uppercase text-[#C5A880] font-medium mb-1">
-                  Architectural Harmony
+              <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-md p-4 rounded-xl bg-[#080B0E]/85 backdrop-blur-md border border-[#C5A880]/30 shadow-xl">
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[#C5A880] font-medium mb-1">
+                  Private Estate Grounds
                 </p>
                 <p className="text-xs text-[#E5D5C0] font-light">
-                  Seamless indoor-outdoor transitions blending natural stone, rich timbers, and panoramic garden light.
+                  Surrounded by natural Aravalli hills, green garden lawns, and calm mountain air.
                 </p>
               </div>
             </div>
 
             {/* Overlapping Secondary Detail Card */}
-            <div className="hidden sm:block absolute -bottom-8 -left-8 w-60 p-4 rounded-xl glass-panel border border-[#C5A880]/30 shadow-2xl bg-[#0F1318]/90">
+            <div className="hidden sm:block absolute -bottom-8 -left-8 w-60 p-4 rounded-xl bg-[#0F1318]/95 backdrop-blur-md border border-[#C5A880]/30 shadow-2xl">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-4 h-4 text-[#C5A880]" />
+                <Shield className="w-4 h-4 text-[#C5A880]" />
                 <span className="text-[11px] uppercase tracking-wider text-[#C5A880] font-medium">
-                  Secluded Living
+                  Exclusive Buyout
                 </span>
               </div>
               <p className="text-2xl font-serif text-[#F8F5EE] leading-tight">
                 Zero Shared Spaces
               </p>
               <p className="text-[11px] text-[#A69E92] mt-1">
-                The entire property, grounds, pool, and staff are dedicated solely to you.
+                The entire property, adult pool, lawn, and staff are reserved solely for your group.
               </p>
             </div>
           </div>
