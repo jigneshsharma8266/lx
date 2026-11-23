@@ -74,8 +74,8 @@ export default function Hero({ onQuickBook }: HeroProps) {
         </div>
 
         {/* Soft, Light Shadow Veil across Background for Text Readability without Dark Boxes */}
-        <div className="absolute inset-0 bg-[#080B0E]/20 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080B0E] via-transparent to-black/45 pointer-events-none" />
+        <div className="absolute inset-0 bg-[#080B0E]/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080B0E] via-[#080B0E]/35 to-black/60 pointer-events-none" />
         <div className="absolute inset-0 bg-grain opacity-20 pointer-events-none" />
       </div>
 
@@ -98,7 +98,7 @@ export default function Hero({ onQuickBook }: HeroProps) {
           <span className="italic font-serif gold-text-gradient">in Udaipur.</span>
         </h1>
 
-        <p className="max-w-2xl text-sm sm:text-lg text-[#D2CBC1] font-light leading-relaxed mb-6 sm:mb-8 px-2 sm:px-4">
+        <p className="max-w-2xl text-sm sm:text-base md:text-lg text-[#F8F5EE] font-normal leading-relaxed mb-6 sm:mb-8 px-2 sm:px-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
           {villaData.meta.heroSubtitle}
         </p>
 
@@ -112,7 +112,7 @@ export default function Hero({ onQuickBook }: HeroProps) {
           </Link>
           <a
             href="#intro"
-            className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-full bg-white/5 hover:bg-white/10 text-[#F3EFE6] text-xs font-medium tracking-wider uppercase border border-white/20 hover:border-[#C5A880] transition-colors text-center"
+            className="w-full sm:w-auto px-7 sm:px-8 py-3.5 rounded-full bg-[#080B0E]/80 hover:bg-[#080B0E] text-[#F3EFE6] text-xs font-semibold tracking-wider uppercase border border-[#C5A880]/50 hover:border-[#C5A880] transition-all text-center shadow-lg shadow-black/50 backdrop-blur-md"
           >
             Explore Spaces
           </a>

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Calendar, MapPin, ExternalLink, Phone } from "lucide-react";
 import { villaData } from "@/data/villaData";
 import LuxoraLogo from "./LuxoraLogo";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -25,21 +26,7 @@ function InstagramIcon({ className = "w-4 h-4" }: { className?: string }) {
   );
 }
 
-function WhatsAppIcon({ className = "w-4 h-4" }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-    </svg>
-  );
-}
+
 
 export default function Navbar({ onOpenBooking }: { onOpenBooking?: () => void }) {
   const pathname = usePathname();
@@ -74,6 +61,17 @@ export default function Navbar({ onOpenBooking }: { onOpenBooking?: () => void }
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   const navLinks = [
     { label: "Rooms", href: "/rooms" },
@@ -159,8 +157,8 @@ export default function Navbar({ onOpenBooking }: { onOpenBooking?: () => void }
         {/* Main Navbar Bar */}
         <div
           className={`transition-all duration-300 ease-in-out ${isScrolled
-              ? "bg-[#080B0E]/95 backdrop-blur-xl py-2 sm:py-2.5 shadow-2xl shadow-black/80 border-none"
-              : "bg-gradient-to-b from-black/85 via-black/45 to-transparent py-2.5 sm:py-3.5"
+            ? "bg-[#080B0E]/95 backdrop-blur-xl py-2 sm:py-2.5 shadow-2xl shadow-black/80 border-none"
+            : "bg-gradient-to-b from-black/85 via-black/45 to-transparent py-2.5 sm:py-3.5"
             }`}
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between flex-nowrap gap-4">
@@ -185,8 +183,8 @@ export default function Navbar({ onOpenBooking }: { onOpenBooking?: () => void }
                       key={link.href}
                       href={link.href}
                       className={`relative py-1 px-3 rounded-full text-[11px] xl:text-xs transition-all duration-200 whitespace-nowrap shrink-0 flex items-center gap-1.5 ${isActive
-                          ? "bg-[#C5A880] text-[#080B0E] font-bold shadow-md shadow-[#C5A880]/20"
-                          : "bg-[#C5A880]/10 hover:bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/30 hover:border-[#C5A880]/60"
+                        ? "bg-[#C5A880] text-[#080B0E] font-bold shadow-md shadow-[#C5A880]/20"
+                        : "bg-[#C5A880]/10 hover:bg-[#C5A880]/20 text-[#C5A880] border border-[#C5A880]/30 hover:border-[#C5A880]/60"
                         }`}
                     >
                       <span>{link.label}</span>
@@ -234,161 +232,159 @@ export default function Navbar({ onOpenBooking }: { onOpenBooking?: () => void }
         </div>
       </header>
 
-      {/* Universal Luxury Slide-Over Menu Drawer (Desktop & Mobile) */}
+      {/* Universal Luxury Full-Screen Navigation Menu */}
       <div
-        className={`fixed inset-0 z-50 transition-opacity duration-300 ${mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-[80] transition-all duration-300 ${mobileMenuOpen
+          ? "opacity-100 pointer-events-auto visible"
+          : "opacity-0 pointer-events-none invisible"
           }`}
       >
-        {/* Dark Ambient Backdrop */}
+        {/* Full-Screen Menu Panel */}
         <div
-          onClick={() => setMobileMenuOpen(false)}
-          className="absolute inset-0 bg-black/80 backdrop-blur-md cursor-pointer transition-opacity"
-        />
-
-        {/* Slide-In Drawer Panel from Right */}
-        <div
-          className={`absolute top-0 right-0 bottom-0 w-full max-w-md sm:max-w-lg bg-[#080B0E] border-l border-[#C5A880]/25 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto transform transition-transform duration-300 ease-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+          className={`fixed inset-0 w-full h-full bg-[#080B0E] p-6 sm:p-8 flex flex-col justify-between overflow-y-auto transform transition-transform duration-300 ease-out ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
         >
-          {/* Drawer Top Header */}
-          <div className="flex items-center justify-between pb-5 border-b border-[#C5A880]/20">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center focus:outline-none"
-            >
-              <LuxoraLogo variant="horizontal" size="sm" />
-            </Link>
+            <div className="max-w-lg mx-auto w-full flex flex-col justify-between min-h-full">
+              {/* Top Header */}
+              <div className="flex items-center justify-between pb-5 border-b border-[#C5A880]/20">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center focus:outline-none"
+                >
+                  <LuxoraLogo variant="horizontal" size="sm" />
+                </Link>
 
-            <button
-              onClick={() => setMobileMenuOpen(false)}
-              className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/5 hover:bg-[#C5A880]/20 border border-white/10 hover:border-[#C5A880] text-white hover:text-[#C5A880] transition-colors flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold"
-              aria-label="Close Drawer"
-            >
-              <span className="hidden sm:inline">Close</span>
-              <X className="w-4 h-4" />
-            </button>
-          </div>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-white/5 hover:bg-[#C5A880]/20 border border-white/10 hover:border-[#C5A880] text-white hover:text-[#C5A880] transition-colors flex items-center gap-1.5 text-xs uppercase tracking-wider font-semibold"
+                aria-label="Close Menu"
+              >
+                <span className="hidden sm:inline">Close</span>
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
-          {/* Navigation Links with Numbering */}
-          <div className="py-6 space-y-4">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[#C5A880] font-sans font-semibold">
-              Explore Luxora Estate
-            </p>
-            <nav className="flex flex-col gap-3.5 text-left">
-              {[
-                { label: "Home & Estate Overview", href: "/" },
-                { label: "Suites & AC Bedrooms", href: "/rooms" },
-                { label: "Photo Gallery (37+ Photos)", href: "/gallery" },
-                { label: "Villa & Pool Experiences", href: "/experiences" },
-                { label: "In-House Dining Menu", href: "/menu" },
-                { label: "Book Lunch / Dinner Table (₹0 Fee)", href: "/book-dining", isHighlight: true },
-                { label: "Location & Contact", href: "/contact" },
-              ].map((link, idx) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
+                  {/* Navigation Links (Matching Desktop Typography, No Numbers) */ }
+            <div className="py-6 space-y-3">
+              <p className="text-[10px] tracking-[0.25em] uppercase text-[#C5A880] font-sans font-semibold px-3">
+                Explore Luxora Estate
+              </p>
+              <nav className="flex flex-col gap-1 text-left">
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "Rooms", href: "/rooms" },
+                  { label: "Gallery", href: "/gallery" },
+                  { label: "Experiences", href: "/experiences" },
+                  { label: "Dining Menu", href: "/menu" },
+                  { label: "Book Dining", href: "/book-dining", isHighlight: true },
+                  { label: "Contact", href: "/contact" },
+                ].map((link) => {
+                  const isActive =
+                    link.href === "/"
+                      ? pathname === "/"
+                      : pathname === link.href || (link.href !== "/" && pathname.startsWith(`${link.href}/`));
 
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`font-serif text-xl sm:text-2xl transition-colors flex items-center justify-between group py-1 ${isActive
-                        ? "text-[#C5A880]"
-                        : link.isHighlight
-                          ? "text-[#E0CDB5] hover:text-[#C5A880]"
-                          : "text-[#F3EFE6] hover:text-[#C5A880]"
-                      }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span>{link.label}</span>
-                      {link.isHighlight && (
-                        <span className="text-[9px] font-sans font-bold px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] uppercase tracking-wider">
-                          New
-                        </span>
-                      )}
-                    </span>
-                    <span className="text-xs font-sans text-[#C5A880]/50 tracking-widest group-hover:text-[#C5A880]">
-                      0{idx + 1}
-                    </span>
-                  </Link>
-                );
-              })}
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`font-sans text-sm sm:text-base uppercase tracking-[0.12em] font-medium transition-all duration-200 flex items-center justify-between group py-3 px-3.5 rounded-xl ${isActive
+                          ? "text-[#C5A880] font-semibold bg-[#C5A880]/10 border border-[#C5A880]/20"
+                          : link.isHighlight
+                            ? "text-[#F3EFE6] hover:text-[#C5A880] hover:bg-white/[0.03]"
+                            : "text-[#E2DDD5] hover:text-[#C5A880] hover:bg-white/[0.03]"
+                        }`}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        {isActive && (
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880] shadow-[0_0_8px_rgba(197,168,128,0.8)]" />
+                        )}
+                        <span>{link.label}</span>
+                        {link.isHighlight && (
+                          <span className="text-[10px] font-sans font-semibold px-2 py-0.5 rounded-full bg-[#C5A880]/15 text-[#C5A880] border border-[#C5A880]/30 tracking-wider">
+                            New
+                          </span>
+                        )}
+                      </span>
+                    </Link>
+              );
+                })}
             </nav>
           </div>
 
-          {/* Drawer Bottom Address & Quick Action Buttons */}
-          <div className="border-t border-[#C5A880]/15 pt-5 space-y-4">
-            {/* Property Address Card */}
-            <div className="p-3.5 rounded-2xl bg-[#12161D] border border-[#C5A880]/25 space-y-1.5">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-[10px] font-sans text-[#C5A880] uppercase tracking-wider font-semibold">
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>Villa Address</span>
+                  {/* Bottom Address & Quick Action Buttons */}
+                  <div className="border-t border-[#C5A880]/15 pt-5 space-y-4">
+                    {/* Property Address Card */}
+                    <div className="p-3.5 rounded-2xl bg-[#12161D] border border-[#C5A880]/25 space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1.5 text-[10px] font-sans text-[#C5A880] uppercase tracking-wider font-semibold">
+                          <MapPin className="w-3.5 h-3.5" />
+                          <span>Villa Address</span>
+                        </div>
+                        <a
+                          href={villaData.location.googleMapsUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[10px] text-[#C5A880] font-semibold flex items-center gap-1 hover:underline"
+                        >
+                          <span>GPS Directions</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
+                        </a>
+                      </div>
+                      <p className="text-white text-xs font-medium leading-snug">
+                        Godach, Ghoda Ghati Road
+                      </p>
+                      <p className="text-[11px] text-[#A69E92] leading-snug">
+                        Udaipur – Nathdwara Route, Rajsamand – 313011
+                      </p>
+                    </div>
+
+                    {/* Social Links */}
+                    <div className="flex items-center justify-between text-xs text-[#D2CBC1]">
+                      <a
+                        href={villaData.contact.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-[#C5A880] hover:underline"
+                      >
+                        <InstagramIcon className="w-4 h-4" />
+                        <span>{villaData.contact.instagramHandle}</span>
+                      </a>
+                      <a
+                        href={`https://wa.me/${villaData.contact.whatsappNumber}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-[#25D366] hover:underline"
+                      >
+                        <WhatsAppIcon className="w-4 h-4" />
+                        <span>WhatsApp Direct</span>
+                      </a>
+                    </div>
+
+                  {/* Dual Action CTA Buttons */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                    <Link
+                      href="/book-dining"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="w-full py-3 rounded-full bg-[#1A202C] hover:bg-[#C5A880]/20 border border-[#C5A880]/40 text-[#C5A880] text-center text-xs font-semibold tracking-wider uppercase transition-colors"
+                    >
+                      Book Lunch / Dinner
+                    </Link>
+
+                      <Link
+                        href="/book"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="w-full py-3 rounded-full bg-[#C5A880] hover:bg-[#D4BC9B] text-[#080B0E] text-center text-xs font-semibold tracking-wider uppercase transition-colors shadow-md"
+                      >
+                        Check Stay Availability
+                      </Link>
+                    </div>
+                  </div>
                 </div>
-                <a
-                  href={villaData.location.googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[10px] text-[#C5A880] font-semibold flex items-center gap-1 hover:underline"
-                >
-                  <span>GPS Directions</span>
-                  <ExternalLink className="w-2.5 h-2.5" />
-                </a>
               </div>
-              <p className="text-white text-xs font-medium leading-snug">
-                Godach, Ghoda Ghati Road
-              </p>
-              <p className="text-[11px] text-[#A69E92] leading-snug">
-                Udaipur – Nathdwara Route, Rajsamand – 313011
-              </p>
             </div>
-
-            {/* Social Links */}
-            <div className="flex items-center justify-between text-xs text-[#D2CBC1]">
-              <a
-                href={villaData.contact.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[#C5A880] hover:underline"
-              >
-                <InstagramIcon className="w-4 h-4" />
-                <span>{villaData.contact.instagramHandle}</span>
-              </a>
-              <a
-                href={`https://wa.me/${villaData.contact.whatsappNumber}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-[#25D366] hover:underline"
-              >
-                <WhatsAppIcon className="w-4 h-4" />
-                <span>WhatsApp Direct</span>
-              </a>
-            </div>
-
-            {/* Dual Action CTA Buttons */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-              <Link
-                href="/book-dining"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-3 rounded-full bg-[#1A202C] hover:bg-[#C5A880]/20 border border-[#C5A880]/40 text-[#C5A880] text-center text-xs font-semibold tracking-wider uppercase transition-colors"
-              >
-                Book Lunch / Dinner
-              </Link>
-
-              <Link
-                href="/book"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-3 rounded-full bg-[#C5A880] hover:bg-[#D4BC9B] text-[#080B0E] text-center text-xs font-semibold tracking-wider uppercase transition-colors shadow-md"
-              >
-                Check Stay Availability
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+          </>
+          );
 }

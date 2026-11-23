@@ -86,8 +86,8 @@ export default function Introduction() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
 
-              {/* Inset Photo Overlay Badge */}
-              <div className="absolute bottom-5 left-5 right-5 sm:right-auto sm:max-w-md p-4 rounded-xl bg-[#080B0E]/85 backdrop-blur-md border border-[#C5A880]/30 shadow-xl">
+              {/* Inset Photo Overlay Badge (Top-Right to avoid collision with Bottom-Left Buyout card) */}
+              <div className="absolute top-4 right-4 sm:top-5 sm:right-5 max-w-[260px] sm:max-w-xs p-3.5 sm:p-4 rounded-xl bg-[#080B0E]/85 backdrop-blur-md border border-[#C5A880]/30 shadow-xl">
                 <p className="text-[10px] tracking-[0.2em] uppercase text-[#C5A880] font-medium mb-1">
                   Private Estate Grounds
                 </p>

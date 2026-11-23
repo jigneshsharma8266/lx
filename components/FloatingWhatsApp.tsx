@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { MessageCircle, X } from "lucide-react";
+import { X } from "lucide-react";
+import WhatsAppIcon from "./WhatsAppIcon";
 import { villaData } from "@/data/villaData";
 
 export default function FloatingWhatsApp() {
@@ -60,7 +61,7 @@ export default function FloatingWhatsApp() {
         aria-label="Chat with Luxora Villa on WhatsApp"
         className="group relative w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20ba59] flex items-center justify-center text-white shadow-xl shadow-black/60 transition-transform duration-200 hover:scale-105"
       >
-        <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 fill-current relative z-10" />
+        <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-white relative z-10" />
 
         {/* Online Status Dot */}
         <span className="absolute top-0.5 right-0.5 w-3 h-3 bg-emerald-200 border-2 border-[#080B0E] rounded-full z-20" />
