@@ -47,7 +47,7 @@ const EXPERIENCES_LIST: ExperienceStory[] = [
       "Warm ambient underwater lighting for romantic night swims",
       "Comfortable loungers and poolside tea & snack service",
     ],
-    imageUrl: "/images/villa/pool-daylight-deck.webp",
+    imageUrl: "/images/villa/pool-twilight-gazebo.jpg",
     imageCaption: "Private adult swimming pool with 2-level viewing gazebo deck",
   },
   {
@@ -63,7 +63,7 @@ const EXPERIENCES_LIST: ExperienceStory[] = [
       "Prime location for photoshoot reels, portraits, and golden hour teas",
       "Fresh mountain breezes descending from surrounding valley slopes",
     ],
-    imageUrl: "/images/villa/rooftop-jharokha-sunset.jpeg",
+    imageUrl: "/images/villa/villa-sunset-chhatri-night.png",
     imageCaption: "Rooftop checkered terrace with Rajasthani chhatri at golden hour",
   },
   {
@@ -79,7 +79,7 @@ const EXPERIENCES_LIST: ExperienceStory[] = [
       "Warm blankets, lantern glow, and peaceful nocturnal stillness",
       "Perfect setting for storytelling, acoustic music, and family reunions",
     ],
-    imageUrl: "/images/villa/dining-lawn-bonfire.jpg",
+    imageUrl: "/images/villa/lifestyle-resort-night.jpg",
     imageCaption: "Evening lawn bonfire with tea and appetizers",
   },
   {
@@ -146,25 +146,30 @@ export default function ExperiencesPage() {
     <div className="min-h-screen bg-[#080B0E] text-[#F3EFE6] selection:bg-[#C5A880]/30 selection:text-white">
       <Navbar />
 
-      <main className="relative pt-24 sm:pt-28 pb-16 overflow-hidden">
+      <main className="relative pt-32 sm:pt-36 lg:pt-40 pb-20 overflow-hidden">
         {/* Subtle Ambient Background */}
         <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#C5A880]/8 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Compact Above-the-Fold Header */}
-          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1A202C]/60 border border-[#C5A880]/30 text-[10px] sm:text-[11px] font-sans font-medium uppercase tracking-[0.2em] text-[#C5A880] mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span>Pool & Outdoor Living • Private Estate Experiences</span>
-            </div>
-
-            <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-light text-[#F3EFE6] tracking-tight leading-[1.15]">
-              Swimming Pool, Bonfires & <span className="italic font-serif gold-text-gradient">Garden Living</span>
+          {/* Simplified Luxury Header */}
+          <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-[#F3EFE6] tracking-tight">
+              Pool & Outdoor <span className="italic font-serif gold-text-gradient">Experiences</span>
             </h1>
-
-            <p className="mt-1.5 text-xs sm:text-sm text-[#C8C0B5] font-light max-w-xl mx-auto leading-relaxed">
-              Swim in our private adult pool, enjoy evening tea under the rooftop chhatri, play your music on the Bluetooth party speaker, or gather around a lawn bonfire under the stars.
+            <p className="mt-2 text-xs sm:text-sm text-[#A69E92] font-light">
+              Private adult pool, sunset rooftop chhatri, lawn bonfires & party sound
             </p>
+            <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-[11px] sm:text-xs">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-[#25D366]/30 text-[#25D366] font-medium shadow-sm">
+                <Waves className="w-3.5 h-3.5 text-[#25D366]" /> Private Adult Pool
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-white/10 text-[#D2CBC1]">
+                <SunMedium className="w-3.5 h-3.5 text-[#C5A880]" /> Rooftop Chhatri
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-[#C5A880]/30 text-[#C5A880]">
+                <Flame className="w-3.5 h-3.5 text-[#C5A880]" /> Lawn Bonfire
+              </span>
+            </div>
           </div>
 
           {/* Stories Section (Directly visible above the fold!) */}

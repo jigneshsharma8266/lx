@@ -85,25 +85,30 @@ export default function ContactPage() {
     <div className="min-h-screen bg-[#080B0E] text-[#F3EFE6] selection:bg-[#C5A880]/30 selection:text-white">
       <Navbar />
 
-      <main className="relative pt-24 sm:pt-28 pb-16 overflow-hidden">
+      <main className="relative pt-32 sm:pt-36 lg:pt-40 pb-20 overflow-hidden">
         {/* Subtle Ambient Background */}
         <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#C5A880]/8 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Compact Header */}
-          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1A202C]/60 border border-[#C5A880]/30 text-[10px] sm:text-[11px] font-sans font-medium uppercase tracking-[0.2em] text-[#C5A880] mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#25D366]" />
-              <span>Direct Property Contact • Udaipur, Rajasthan</span>
-            </div>
-
-            <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-light text-[#F3EFE6] tracking-tight leading-[1.15]">
-              How to Reach Us & <span className="italic font-serif gold-text-gradient">Contact the Host</span>
+          {/* Simplified Luxury Header */}
+          <div className="text-center max-w-2xl mx-auto mb-7 sm:mb-9">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-[#F3EFE6] tracking-tight">
+              Location & <span className="italic font-serif gold-text-gradient">Contact the Host</span>
             </h1>
-
-            <p className="mt-1.5 text-xs sm:text-sm text-[#C8C0B5] font-light max-w-xl mx-auto leading-relaxed">
-              Located in the scenic mountain foothills of Udaipur. Connect on WhatsApp (+91 86909 55700) or call directly for bookings and easy navigation.
+            <p className="mt-2 text-xs sm:text-sm text-[#A69E92] font-light">
+              Godach, Ghoda Ghati Road • Scenic foothills between Udaipur & Nathdwara
             </p>
+            <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-[11px] sm:text-xs">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-[#25D366]/30 text-[#25D366] font-medium shadow-sm">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#25D366]" /> Direct Host Booking
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-white/10 text-[#D2CBC1]">
+                <MapPin className="w-3 h-3 text-[#C5A880]" /> 20 Min from Nathdwara
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-[#C5A880]/30 text-[#C5A880]">
+                <Phone className="w-3 h-3 text-[#C5A880]" /> +91 86909 55700
+              </span>
+            </div>
           </div>
 
           {/* 1. Map & Inquiry Form Combined Section (ON TOP!) */}
@@ -115,7 +120,7 @@ export default function ContactPage() {
                   Scenic Location
                 </span>
                 <h2 className="font-serif text-2xl sm:text-3xl text-[#F3EFE6] font-light">
-                  Nestled in the City of Lakes
+                  Scenic Foothills between Udaipur & Nathdwara
                 </h2>
                 <p className="text-xs sm:text-sm text-[#A69E92] font-light leading-relaxed">
                   {villaData.location.directionsNote}
@@ -137,23 +142,31 @@ export default function ContactPage() {
                 />
 
                 {/* Overlaid Card */}
-                <div className="absolute bottom-4 left-4 right-4 sm:right-auto p-4 rounded-2xl bg-[#080B0E]/90 backdrop-blur-md border border-[#C5A880]/30 shadow-xl max-w-sm">
-                  <div className="flex items-center gap-2 text-[11px] font-sans text-[#C5A880] uppercase tracking-wider mb-1">
+                <div className="absolute bottom-4 left-4 right-4 sm:right-auto p-4 rounded-2xl bg-[#080B0E]/90 backdrop-blur-md border border-[#C5A880]/30 shadow-xl max-w-sm space-y-1.5">
+                  <div className="flex items-center gap-2 text-[11px] font-sans text-[#C5A880] uppercase tracking-wider">
                     <Navigation className="w-3.5 h-3.5" />
-                    <span>Exact Villa Coordinates</span>
+                    <span>Exact Villa Address & GPS</span>
                   </div>
-                  <p className="font-mono text-xs text-[#F3EFE6]">
-                    {villaData.location.coordinates}
+                  <p className="text-white text-xs font-medium leading-snug">
+                    {villaData.location.addressLine1}
                   </p>
-                  <a
-                    href={villaData.location.googleMapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs text-[#C5A880] hover:underline font-medium mt-2"
-                  >
-                    <span>Launch Google Maps GPS</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+                  <p className="text-[11px] text-[#A69E92] leading-snug">
+                    {villaData.location.addressLine2}
+                  </p>
+                  <div className="pt-1 flex items-center justify-between text-xs">
+                    <span className="font-mono text-[10px] text-[#C5A880]">
+                      GPS: {villaData.location.coordinates}
+                    </span>
+                    <a
+                      href={villaData.location.googleMapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs text-[#C5A880] hover:underline font-semibold"
+                    >
+                      <span>Open Maps</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -407,7 +420,7 @@ export default function ContactPage() {
                   Google Maps Navigation
                 </h4>
                 <p className="text-[11px] text-[#A69E92] mt-1 font-light leading-snug">
-                  GPS navigation directly to our entrance gate in Udaipur foothills.
+                  Godach, Ghoda Ghati Road, Udaipur – Nathdwara Route, Rajsamand – 313011.
                 </p>
                 <p className="text-xs font-semibold text-[#C5A880] mt-3 flex items-center gap-1">
                   <span>Open GPS Pin</span>

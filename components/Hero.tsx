@@ -48,25 +48,41 @@ export default function Hero({ onQuickBook }: HeroProps) {
   return (
     <section className="relative min-h-[85vh] sm:min-h-[92vh] sm:max-h-[1050px] w-full flex flex-col justify-between items-center text-center overflow-hidden pt-24 sm:pt-28 pb-8 sm:pb-16 px-3 sm:px-4">
       {/* Background Image with Cinematic Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/images/villa/hero-villa-exterior-day.webp"
-          alt="Luxora Villa Udaipur Architecture & Private Adult Pool"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center scale-105 transition-transform duration-1000 ease-out"
-        />
-        {/* Multilayered Cinematic Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080B0E] via-[#080B0E]/60 to-black/75" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-black/40 to-[#080B0E]/90" />
-        <div className="absolute inset-0 bg-grain opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-[#080B0E]">
+        {/* Mobile & MD screens: Original full portrait image */}
+        <div className="relative w-full h-full lg:hidden">
+          <Image
+            src="/images/villa/villa-sunset-chhatri-night.webp"
+            alt="Luxora Villa Udaipur Illuminated Architecture & Rooftop Chhatri at Sunset"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center transition-transform duration-1000 ease-out"
+          />
+        </div>
+
+        {/* Desktop / Large screens: Widescreen panoramic spread image */}
+        <div className="relative w-full h-full hidden lg:block">
+          <Image
+            src="/images/villa/hero-villa-shadow-85.webp"
+            alt="Luxora Villa Udaipur Illuminated Architecture & Rooftop Chhatri at Sunset"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center transition-transform duration-1000 ease-out"
+          />
+        </div>
+
+        {/* Soft, Light Shadow Veil across Background for Text Readability without Dark Boxes */}
+        <div className="absolute inset-0 bg-[#080B0E]/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080B0E] via-transparent to-black/45 pointer-events-none" />
+        <div className="absolute inset-0 bg-grain opacity-20 pointer-events-none" />
       </div>
 
       {/* Floating Status Pill */}
       <div className="relative z-10 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#080B0E]/80 backdrop-blur-md text-[10px] sm:text-xs tracking-[0.2em] uppercase text-[#E5D5C0] border border-[#C5A880]/30 shadow-lg mb-3 sm:mb-4">
         <span className="w-1.5 h-1.5 rounded-full bg-[#C5A880]" />
-        <span className="font-medium text-[#C5A880]">Luxora Villa, Udaipur</span>
+        <span className="font-medium text-[#C5A880]">Godach • Udaipur – Nathdwara Route</span>
         <span className="text-[#C5A880]/40">•</span>
         <span className="text-[#D2CBC1]">Private Adult Pool & Mountain Views</span>
       </div>

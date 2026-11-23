@@ -93,7 +93,7 @@ export default function LocationSection() {
               <div className="relative z-10 m-4 sm:m-6 flex items-center justify-between gap-2 pointer-events-auto">
                 <div className="px-3.5 py-1.5 rounded-full bg-[#080B0E]/85 backdrop-blur-md border border-[#C5A880]/30 text-xs text-[#E5D5C0] flex items-center gap-2 shadow-lg">
                   <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-                  <span className="font-serif font-medium text-white">Luxora Villa, Udaipur</span>
+                  <span className="font-serif font-medium text-white">Luxora Villa • Godach (Udaipur – Nathdwara Route)</span>
                 </div>
 
                 <button
@@ -147,7 +147,7 @@ export default function LocationSection() {
                 Prime Surroundings
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl text-[#F8F5EE] mb-4">
-                Close to Udaipur Highlights
+                Connecting Udaipur & Nathdwara
               </h3>
             </div>
 

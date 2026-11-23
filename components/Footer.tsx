@@ -114,7 +114,7 @@ export default function Footer() {
             </p>
 
             <p className="text-sm text-[#B0A799] font-light leading-relaxed max-w-sm">
-              An exclusive private villa in Udaipur featuring a secluded adult swimming pool, fully furnished AC bedrooms, dedicated dining hall serving fresh in-house meals, and tranquil Aravalli mountain views.
+              An exclusive private villa located in Godach on Ghoda Ghati Road along the scenic Udaipur – Nathdwara corridor (Rajsamand – 313011), featuring a secluded adult swimming pool, AC bedrooms, dedicated dining hall, and tranquil Aravalli mountain views.
             </p>
 
             {/* Social Pill Links */}
@@ -210,6 +210,20 @@ export default function Footer() {
                   <ChevronRight className="w-3.5 h-3.5 text-[#C5A880]/40 group-hover:text-[#C5A880] group-hover:translate-x-1 transition-all" />
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/book-dining"
+                  className="hover:text-[#C5A880] transition-colors flex items-center justify-between group"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>Book Lunch / Dinner Table</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] font-mono">
+                      ₹0 Table Fee
+                    </span>
+                  </span>
+                  <ChevronRight className="w-3.5 h-3.5 text-[#C5A880]/40 group-hover:text-[#C5A880] group-hover:translate-x-1 transition-all" />
+                </Link>
+              </li>
               {/* <li>
                 <Link
                   href="/3d"
@@ -288,21 +302,38 @@ export default function Footer() {
             </h4>
 
             <div className="space-y-4 text-xs sm:text-sm text-[#A69E92]">
-              {/* Address with Map Pin */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#12161D] border border-[#C5A880]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#C5A880]">
-                  <MapPin className="w-4 h-4" />
+              {/* Address with Map Pin & Direct GPS Navigation */}
+              <div className="p-4 rounded-2xl bg-[#12161D] border border-[#C5A880]/25 space-y-2.5">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#C5A880]/15 border border-[#C5A880]/30 flex items-center justify-center shrink-0 mt-0.5 text-[#C5A880]">
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider text-[#C5A880] font-sans font-semibold block mb-0.5">
+                      Villa Address & Route
+                    </span>
+                    <p className="text-[#F3EFE6] font-medium leading-snug">
+                      {villaData.location.addressLine1}
+                    </p>
+                    <p className="text-xs text-[#C8C0B5] mt-0.5 leading-snug">
+                      {villaData.location.addressLine2}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[#F3EFE6] font-medium leading-snug">
-                    {villaData.location.addressLine1}
-                  </p>
-                  <p className="text-xs text-[#A69E92] mt-0.5">
-                    {villaData.location.addressLine2}
-                  </p>
-                  <p className="font-mono text-[11px] text-[#C5A880] mt-1">
+
+                <div className="pt-2 border-t border-[#C5A880]/15 flex items-center justify-between text-[11px]">
+                  <span className="font-mono text-[#A69E92]">
                     GPS: {villaData.location.coordinates}
-                  </p>
+                  </span>
+                  <a
+                    href={villaData.location.googleMapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[#C5A880] hover:text-white font-semibold underline underline-offset-2 transition-colors"
+                  >
+                    <span>Open Maps</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
 

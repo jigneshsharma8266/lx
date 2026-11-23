@@ -107,25 +107,30 @@ export default function GalleryPage() {
     <div className="min-h-screen bg-[#080B0E] text-[#F3EFE6] selection:bg-[#C5A880]/30 selection:text-white">
       <Navbar />
 
-      <main className="relative pt-24 sm:pt-28 pb-16 overflow-hidden">
+      <main className="relative pt-32 sm:pt-36 lg:pt-40 pb-20 overflow-hidden">
         {/* Subtle Ambient Background */}
         <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#C5A880]/8 rounded-full blur-[160px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-4 sm:mb-5">
-          {/* Compact Above-the-Fold Header */}
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#1A202C]/60 border border-[#C5A880]/30 text-[10px] sm:text-[11px] font-sans font-medium uppercase tracking-[0.2em] text-[#C5A880] mb-2">
-              <Camera className="w-3.5 h-3.5 text-[#C5A880]" />
-              <span>Real Property Photography • {villaData.gallery.length}+ High-Resolution Photos</span>
-            </div>
-
-            <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-light text-[#F3EFE6] tracking-tight leading-[1.15]">
-              Explore Luxora Villa in <span className="italic font-serif gold-text-gradient">Photos</span>
+          {/* Simplified Luxury Header */}
+          <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-7">
+            <h1 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-[#F3EFE6] tracking-tight">
+              Photo Gallery of <span className="italic font-serif gold-text-gradient">Luxora Villa</span>
             </h1>
-
-            <p className="mt-1.5 text-xs sm:text-sm text-[#C8C0B5] font-light max-w-xl mx-auto leading-relaxed">
-              Real photos of our private adult swimming pool, air-conditioned suites, dining hall, garden lawns, and rooftop terrace in Udaipur.
+            <p className="mt-2 text-xs sm:text-sm text-[#A69E92] font-light">
+              Real high-resolution photography of our rooms, private pool & estate grounds
             </p>
+            <div className="mt-3.5 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-[11px] sm:text-xs">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-[#25D366]/30 text-[#25D366] font-medium shadow-sm">
+                <Camera className="w-3.5 h-3.5 text-[#25D366]" /> {villaData.gallery.length}+ Real Photos
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-white/10 text-[#D2CBC1]">
+                <Sparkles className="w-3 h-3 text-[#C5A880]" /> Verified Property
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#12161D] border border-[#C5A880]/30 text-[#C5A880]">
+                <Maximize2 className="w-3 h-3 text-[#C5A880]" /> Fullscreen Lightbox
+              </span>
+            </div>
           </div>
         </div>
 

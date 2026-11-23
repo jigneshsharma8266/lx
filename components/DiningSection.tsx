@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Utensils,
   Sparkles,
@@ -357,7 +358,15 @@ export default function DiningSection({
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <Link
+            href="/book-dining"
+            className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#C5A880] hover:bg-[#D4BC9B] text-[#080B0E] text-xs font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+          >
+            <Utensils className="w-4 h-4" />
+            <span>Book Lunch/Dinner Table</span>
+          </Link>
+
           <a
             href={`https://wa.me/${villaData.contact.whatsappNumber}?text=Hello%20Luxora%20Villa%20Udaipur,%20I%20would%20like%20to%20know%20more%20about%20the%20dining%20and%20food%20arrangements.`}
             target="_blank"
@@ -365,7 +374,7 @@ export default function DiningSection({
             className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-black text-xs font-bold tracking-wider uppercase transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
           >
             <MessageCircle className="w-4 h-4 fill-black text-black" />
-            <span>Enquire Dining on WhatsApp</span>
+            <span>Enquire on WhatsApp</span>
           </a>
         </div>
       </div>
